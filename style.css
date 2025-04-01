@@ -1,0 +1,155 @@
+body {
+    margin: 0;
+    font-family: 'Roboto', sans-serif;
+    background: linear-gradient(135deg, #8b0000, #f8f8f8);
+    background: url('fondecran.jpg') no-repeat center center fixed;
+    background-size: cover;
+    color: #fff;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+body.connexion-page {
+    background: url('fondecran.jpg') no-repeat center center fixed;
+    background-size: cover;
+}
+
+.container {
+    text-align: center;
+    background-color: rgba(255, 255, 255, 0.9);
+    padding: 40px;
+    border-radius: 15px;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+    margin: 150px auto 50px; /* Add spacing below the menu bar and above the footer */
+    width: 90%;
+    max-width: 500px;
+    flex: 1; /* Allow the container to take available space */
+}
+
+h1 {
+    font-size: 2.5rem;
+    margin-bottom: 30px;
+    color: #8b0000;
+    font-weight: bold;
+}
+
+.connexion-btn, .create-account-btn {
+    padding: 15px 30px;
+    font-size: 1.2rem;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 15px;
+    transition: transform 0.2s ease, background-color 0.2s ease;
+}
+
+.connexion-btn {
+    background-color: #8b0000;
+}
+
+.connexion-btn:hover {
+    background-color: #a00000;
+    transform: scale(1.05);
+}
+
+.create-account-btn {
+    background-color: #006400;
+}
+
+.create-account-btn:hover {
+    background-color: #008000;
+    transform: scale(1.05);
+}
+
+.menu-banner {
+    position: fixed; /* Fix the menu bar at the top */
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    padding: 10px 0;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: flex-start; /* Align menu items to the left */
+    z-index: 1000; /* Ensure it stays above other elements */
+    padding-left: 20px; /* Add padding to separate from the edge */
+}
+
+.menu-banner ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    gap: 20px;
+}
+
+.menu-banner li {
+    display: inline;
+}
+
+.menu-banner a {
+    text-decoration: none;
+    color: #ffcccb;
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+.menu-banner a:hover {
+    text-decoration: underline;
+}
+
+form input[type="text"], form input[type="date"], form input[type="email"], form input[type="password"] {
+    width: 100%;
+    padding: 12px;
+    margin: 15px 0;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+    background-color: #f9f9f9;
+}
+
+form input:focus {
+    border-color: #8b0000;
+    outline: none;
+    box-shadow: 0 0 5px rgba(139, 0, 0, 0.5);
+}
+
+form button {
+    width: 100%;
+    padding: 15px;
+    font-size: 1.2rem;
+    color: #fff;
+    background-color: #8b0000;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 20px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+form button:hover {
+    background-color: #a00000;
+    transform: scale(1.05);
+}
+
+.footer {
+    text-align: center;
+    padding: 15px 0;
+    background-color: rgba(0, 0, 0, 0.8);
+    color: #fff;
+    font-size: 0.9rem;
+    margin-top: auto; /* Push the footer to the bottom */
+}
+
+.footer a {
+    color: #ffcccb;
+    text-decoration: none;
+    margin: 0 10px;
+}
+
+.footer a:hover {
+    text-decoration: underline;
+}
