@@ -28,11 +28,11 @@
             <input type="password" name="password" placeholder="Mot de passe" required>
             <br>
             <button type="submit" class="connexion-btn">Connexion</button>
-            <p>
+            <p style="color: red;">
             <?php
             if (isset($_SESSION['message'])) {
                 echo $_SESSION['message'];
-                unset($_SESSION['message']); // On efface le message après l'affichage
+                unset($_SESSION['message']); // On efface le message après l'avoir affiché
             }
             ?></p>
         </form>
