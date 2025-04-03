@@ -16,9 +16,12 @@ function verifieProfil($connexion, $email, $password){
     if ($resultat && mysqli_num_rows($resultat)==1)
     {// Si l'utilisateur est bien logué, on initialise la session et on redirige vers index.php //
       session_start();
+      $row = mysqli_fetch_assoc($resultat); // Récupérer la ligne de résultat
+      $_SESSION['nom'] = $row['NomCli']; // Stocker le nom d'utilisateur dans la session
+      $_SESSION['prenom'] = $row['PrenomCli']; // Stocker le prénom d'utilisateur dans la session
       $_SESSION['email']=$email;
       $_SESSION['message']='';
-      header("Location:index.php");
+      header("Location:dashboard.php");
       exit();
     }
     elseif($resultat && mysqli_num_rows($resultat)!=1)
