@@ -33,7 +33,7 @@ session_start();
     <div class="container">
         <h1>Dashboard</h1>
         <!-- Message de bienvenue avec le nom d'utilisateur -->
-        <p style="color: red;">Bienvenue, <?php echo $_SESSION['nom']." ".$_SESSION['prenom'] ?? 'Utilisateur'; ?> !</p>
+        <p style="color: red;">Bienvenue, <?php echo isset($_SESSION['nom']) ? $_SESSION['nom'] . " " . $_SESSION['prenom'] : 'Utilisateur'; ?> !</p>
 
         <!-- Grille pour afficher les différentes cartes du tableau de bord -->
         <div class="dashboard-grid">

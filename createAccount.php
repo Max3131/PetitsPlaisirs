@@ -1,3 +1,6 @@
+<?php require('connect.php'); ?>
+<?php require('fonctions.php'); ?>
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>

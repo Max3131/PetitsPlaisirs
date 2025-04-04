@@ -42,48 +42,24 @@ function verifieProfil($connexion, $email, $password){
     } 
 }
 
-function creationProfil($connexion, $prenom, $nom, $date_naissance, $adresse, $ville, $code_postal, ,$email, $password){
+function creationProfil($connexion, $prenom, $nom, $date_naissance, $adresse, $ville, $code_postal, $email, $password) {
+    $query = "INSERT INTO client (NomCli, PrenomCli, DateNaissanceCli, AdresseCli, VilleCli, CodePostalCli, EmailCli, MdpCli) 
+              VALUES ('$nom', '$prenom', '$date_naissance', '$adresse', '$ville', '$code_postal', '$email', '$password')";
 
+    $resultat = mysqli_query($connexion, $query);
 
-    // à compléter
-    $query = "insert into client (NomCli, PrenomCli, DateNaissanceCli, AdresseCli, VilleCli, CodePostalCli, EmailCli, MdpCli) values ('".$nom."', '".$prenom."', '".$date_naissance."', '".$adresse."', '".$ville."', '".$code_postal."', '".$email."', '".$password."')";
-
-    $resultat =  mysqli_query($connexion,$query);
-
-
-    // à compléter, ci dessous des bouts de code pour vous aider
-
-    if ($resultat && mysqli_affected_rows($connexion)==1)
-    {// Si l'utilisateur est bien logué, on initialise la session et on redirige vers index.php //
-      session_start();
-      $_SESSION['nom'] = $nom; // Stocker le nom d'utilisateur dans la session
-      $_SESSION['prenom'] = $prenom; // Stocker le prénom d'utilisateur dans la session
-      $_SESSION['email']=$email;
-      $_SESSION['message']='';
-      header("Location:dashboard.php");
-      exit();
+    if ($resultat) {
+        // Si l'insertion réussit, on initialise la session et redirige vers le tableau de bord
+        session_start();
+        $_SESSION['nom'] = $nom;
+        $_SESSION['prenom'] = $prenom;
+        $_SESSION['email'] = $email;
+        $_SESSION['message'] = '';
+        header("Location: dashboard.php");
+        exit();
+    } else {
+        // Si l'insertion échoue, on retourne false pour gérer l'erreur dans register.php
+        return false;
     }
-    {// Si l'utilisateur est bien logué, on initialise la session et on redirige vers index.php //
-      session_start();
-      $_SESSION['email']=$email;
-      $_SESSION['message']='';
-      header("Location:index.php");
-      exit();
-    }
-    elseif($resultat && mysqli_num_rows($resultat)!=1)
-    {
-    //sinon on redirige de nouveau vers la page d'index avec un message d'erreur
-
-    session_start();
-    $_SESSION['message']='Login ou mot de passe incorrect';
-    header("Location:connexion.php");
-    }
-    // N'oubliez pas de gérer les cas de mauvaise connexion à la base, d'erreur dans la requête, ...
-    else
-    {
-      echo "<p>Erreur dans l\'exécution de la requête.<br>";
-        echo $query;
-        echo "Message du serveur de base de données : ".mysqli_error($connexion);
-    } 
 }
 ?>
