@@ -42,18 +42,27 @@ function verifieProfil($connexion, $email, $password){
     } 
 }
 
-/*function creationProfil($connexion, $prenom, $nom, $date_naissance, $adresse, $ville, $code_postal, ,$email, $password){
+function creationProfil($connexion, $prenom, $nom, $date_naissance, $adresse, $ville, $code_postal, ,$email, $password){
 
 
     // à compléter
-    $query = "select * from client where EmailCli = '".$email."' and MdpCli = '".$password."'";
+    $query = "insert into client (NomCli, PrenomCli, DateNaissanceCli, AdresseCli, VilleCli, CodePostalCli, EmailCli, MdpCli) values ('".$nom."', '".$prenom."', '".$date_naissance."', '".$adresse."', '".$ville."', '".$code_postal."', '".$email."', '".$password."')";
 
     $resultat =  mysqli_query($connexion,$query);
 
 
     // à compléter, ci dessous des bouts de code pour vous aider
 
-    if ($resultat && mysqli_num_rows($resultat)==1)
+    if ($resultat && mysqli_affected_rows($connexion)==1)
+    {// Si l'utilisateur est bien logué, on initialise la session et on redirige vers index.php //
+      session_start();
+      $_SESSION['nom'] = $nom; // Stocker le nom d'utilisateur dans la session
+      $_SESSION['prenom'] = $prenom; // Stocker le prénom d'utilisateur dans la session
+      $_SESSION['email']=$email;
+      $_SESSION['message']='';
+      header("Location:dashboard.php");
+      exit();
+    }
     {// Si l'utilisateur est bien logué, on initialise la session et on redirige vers index.php //
       session_start();
       $_SESSION['email']=$email;
@@ -76,5 +85,5 @@ function verifieProfil($connexion, $email, $password){
         echo $query;
         echo "Message du serveur de base de données : ".mysqli_error($connexion);
     } 
-}*/
+}
 ?>
