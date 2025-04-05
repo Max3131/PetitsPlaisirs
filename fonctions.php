@@ -42,7 +42,28 @@ function verifieProfil($connexion, $email, $password){
     } 
 }
 
+function verifieEmail($connexion, $email) {
+    // Vérifie si l'email existe déjà dans la base de données
+    $query = "SELECT * FROM client WHERE EmailCli = '$email'";
+    $resultat = mysqli_query($connexion, $query);
+
+    if ($resultat && mysqli_num_rows($resultat) > 0) {
+        return true; // L'email existe déjà
+    } else {
+        return false; // L'email n'existe pas
+    }
+}
+// Fonction permettant de créer un profil utilisateur dans la base de données
+
 function creationProfil($connexion, $prenom, $nom, $date_naissance, $adresse, $ville, $code_postal, $email, $password) {
+    // Vérifie si l'email existe déjà
+    if (verifieEmail($connexion, $email)) {
+        $_SESSION['message'] = 'Cet email est déjà utilisé.';
+        header("Location: register.php"); // Redirige vers la page d'inscription
+        return false;
+    }
+    // Prépare la requête d'insertion
+
     $query = "INSERT INTO client (NomCli, PrenomCli, DateNaissanceCli, AdresseCli, VilleCli, CodePostalCli, EmailCli, MdpCli) 
               VALUES ('$nom', '$prenom', '$date_naissance', '$adresse', '$ville', '$code_postal', '$email', '$password')";
 
@@ -55,11 +76,11 @@ function creationProfil($connexion, $prenom, $nom, $date_naissance, $adresse, $v
         $_SESSION['prenom'] = $prenom;
         $_SESSION['email'] = $email;
         $_SESSION['message'] = '';
-        header("Location: dashboard.php");
-        exit();
+        return true;
     } else {
         // Si l'insertion échoue, on retourne false pour gérer l'erreur dans register.php
         return false;
+
     }
 }
 ?>
