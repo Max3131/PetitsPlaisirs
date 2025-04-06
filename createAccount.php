@@ -29,6 +29,15 @@
             <input type="email" name="email" placeholder="Adresse e-mail" required>
             <input type="password" name="password" placeholder="Mot de passe" required>
             <button type="submit" class="connexion-btn">Créer un compte</button>
+            <p style="color: red;"> 
+            <?php
+            session_start(); // Démarre la session pour utiliser les variables de session
+            if (isset($_SESSION['message'])) {
+                echo $_SESSION['message'];
+                unset($_SESSION['message']); // On efface le message après l'avoir affiché
+            }
+            ?>
+            </p>
         </form>
     </div>
     <footer class="footer">

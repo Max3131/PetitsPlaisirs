@@ -23,18 +23,11 @@ $code_postal = $_POST['code_postal'];
 $email = $_POST['email'];
 $password = $_POST['password'];
 
-// Appel de la fonction pour créer le profil
-/*if (!creationProfil($connexion, $prenom, $nom, $date_naissance, $adresse, $ville, $code_postal, $email, $password)) {
-    // Affiche une erreur si la création du profil échoue
-    die("Erreur lors de la création du profil : " . mysqli_error($connexion));
-}*/
 if (creationProfil($connexion, $prenom, $nom, $date_naissance, $adresse, $ville, $code_postal, $email, $password)) {
     // Si la création du profil réussit, on redirige vers le tableau de bord
     header("Location: dashboard.php");
 } else {
-    // Si la création échoue, on affiche un message d'erreur
-    $_SESSION['message'] = 'Erreur lors de la création du profil.';
-    header("Location: register.php"); // Redirige vers la page d'inscription
+    header("Location: createAccount.php"); // Redirige vers la page d'inscription
 }
 // Ferme la connexion à la base de données
 ?>

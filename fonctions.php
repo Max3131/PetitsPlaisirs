@@ -59,7 +59,6 @@ function creationProfil($connexion, $prenom, $nom, $date_naissance, $adresse, $v
     // Vérifie si l'email existe déjà
     if (verifieEmail($connexion, $email)) {
         $_SESSION['message'] = 'Cet email est déjà utilisé.';
-        header("Location: register.php"); // Redirige vers la page d'inscription
         return false;
     }
     // Prépare la requête d'insertion
@@ -79,6 +78,7 @@ function creationProfil($connexion, $prenom, $nom, $date_naissance, $adresse, $v
         return true;
     } else {
         // Si l'insertion échoue, on retourne false pour gérer l'erreur dans register.php
+        $_SESSION['message'] = 'Erreur dans la création de compte.';
         return false;
 
     }
