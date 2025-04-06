@@ -1,4 +1,5 @@
-DROP TABLE Client;;
+DROP TABLE Client;
+DROP TABLE Admin;
 
 CREATE TABLE Client (
     idClient INT AUTO_INCREMENT PRIMARY KEY,
@@ -10,5 +11,13 @@ CREATE TABLE Client (
     AdresseCli VARCHAR(50),
     VilleCli VARCHAR(20),
     CodePostalCli VARCHAR(5)
+);
+
+CREATE TABLE Admin (
+    idAdmin INT AUTO_INCREMENT PRIMARY KEY,
+    NomAdmin VARCHAR(100),
+    PrenomAdmin VARCHAR(100),
+    MdpAdmin VARCHAR(50),
+    EmailAdmin VARCHAR(50) UNIQUE
 );
 

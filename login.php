@@ -1,6 +1,6 @@
 <?php  require('connect.php'); ?>
 <?php  require('fonctions.php'); ?>
-<?php session_start(); // Démarre la session pour utiliser les variables de session ?>
+
 
  <?php 
 
@@ -17,6 +17,15 @@
       $email = $_POST["email"];
       $password = $_POST["password"];
 
-      verifieProfil($connexion, $email, $password);
+      if(verifieProfilU($connexion, $email, $password)){
+          header("Location: dashboard.php"); // Redirige vers le tableau de bord
+          exit();
+      } elseif(verifieProfilA($connexion, $email, $password)){
+          header("Location: dashboardAdmin.php"); // Redirige vers la page admin
+          exit();
+      } else {
+          header("Location: connexion.php"); // Redirige vers la page de connexion
+          exit();
+      }
 
 ?>

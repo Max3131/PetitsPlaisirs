@@ -32,9 +32,9 @@ session_start();
     <!-- Conteneur principal pour le contenu du tableau de bord -->
     <div class="container">
         <h1>Dashboard</h1>
-        <!-- Message de bienvenue avec le nom d'utilisateur -->
-        <p style="color: red;">Bienvenue, <?php echo isset($_SESSION['nom']) ? $_SESSION['nom'] . " " . $_SESSION['prenom'] : 'Utilisateur'; ?> !</p>
-
+        <h2 style="color: red;" class="welcome-message">
+            Bienvenue, <?php echo isset($_SESSION['nom']) ? $_SESSION['nom'] . " " . $_SESSION['prenom'] : 'Utilisateur'; ?> !
+        </h2>
         <!-- Grille pour afficher les différentes cartes du tableau de bord -->
         <div class="dashboard-grid">
             <!-- Carte pour consulter les caves -->
