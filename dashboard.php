@@ -41,14 +41,14 @@ session_start();
             <div class="dashboard-card">
                 <h2>Mes Caves</h2>
                 <p>Consultez et gérez vos caves à vin.</p>
-                <button onclick="window.location.href='mes_caves.php'">Voir mes caves</button>
+                <button onclick="window.location.href='cavePanel.php'">Voir mes caves</button>
             </div>
 
             <!-- Carte pour ajouter une nouvelle cave -->
             <div class="dashboard-card">
                 <h2>Ajouter une Cave</h2>
                 <p>Ajoutez une nouvelle cave à vin à votre collection.</p>
-                <button onclick="window.location.href='ajouter_cave.php'">Ajouter une cave</button>
+                <button onclick="window.location.href='createCave.php'">Ajouter une cave</button>
             </div>
 
             <!-- Carte pour consulter les statistiques -->

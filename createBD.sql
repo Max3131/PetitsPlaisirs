@@ -21,3 +21,20 @@ CREATE TABLE Admin (
     EmailAdmin VARCHAR(50) UNIQUE
 );
 
+CREATE TABLE TypeCave (
+    idTypeCave INT PRIMARY KEY,
+    TypeCave VARCHAR(10),
+    TempOptiC INT,
+    LumOptiC INT,
+    HumOptiC INT
+);
+
+CREATE TABLE Cave (
+    idCave INT PRIMARY KEY,
+    VolumeCave INT,
+    AdresseCave VARCHAR(50),
+    VilleCave VARCHAR(20),
+    CodePostalCave VARCHAR(5),
+    idTypeCave INT,
+    CONSTRAINT fk_Cave_TypeCave FOREIGN KEY(idTypeCave) REFERENCES TypeCave(idTypeCave)
+);

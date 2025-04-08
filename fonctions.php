@@ -115,4 +115,29 @@ function creationProfil($connexion, $prenom, $nom, $date_naissance, $adresse, $v
 
     }
 }
+
+//affichage les caves de l'utilisateur connecté
+function afficheCaves($connexion, $email) {
+    // Prépare la requête pour récupérer les caves de l'utilisateur
+    $query = "SELECT * FROM cave WHERE EmailCli = '$email'";
+    $resultat = mysqli_query($connexion, $query);
+
+    if ($resultat && mysqli_num_rows($resultat) > 0) {
+        // Affiche les caves dans un tableau
+        echo "<table>";
+        echo "<tr><th>ID</th><th>Nom de la Cave</th><th>Type de Vin</th><th>Capacité</th></tr>";
+        while ($row = mysqli_fetch_assoc($resultat)) {
+            echo "<tr>";
+            echo "<td>" . $row['IdCave'] . "</td>";
+            echo "<td>" . $row['NomCave'] . "</td>";
+            echo "<td>" . $row['TypeVin'] . "</td>";
+            echo "<td>" . $row['Capacite'] . "</td>";
+            echo "</tr>";
+        }
+        echo "</table>";
+    } else {
+        // Si aucune cave n'est trouvée, affiche un message
+        echo "<p>Aucune cave trouvée.</p>";
+    }
+}
 ?>
