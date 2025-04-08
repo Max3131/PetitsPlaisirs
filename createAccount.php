@@ -17,7 +17,7 @@
             </ul>
         </nav>
     </header>
-    <div class="container">
+    <div class="MenuCentrale">
         <h1>Créer un compte</h1>
         <form action="register.php" method="post">
             <input type="text" name="prenom" placeholder="Prénom" required>

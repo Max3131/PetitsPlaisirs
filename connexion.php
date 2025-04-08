@@ -17,7 +17,7 @@
             </ul>
         </nav>
     </header>
-    <div class="container">
+    <div class="MenuCentrale">
         <h1>Connexion</h1>
         <?php session_start(); // Démarre la session pour utiliser les variables de session ?>
         <form action="login.php" method="post">

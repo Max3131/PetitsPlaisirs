@@ -30,7 +30,7 @@ session_start();
     </header>
 
     <!-- Conteneur principal pour le contenu du tableau de bord -->
-    <div class="container">
+    <div class="MenuCentrale">
         <h1>Dashboard</h1>
         <h2 style="color: red;" class="welcome-message">
             Bienvenue, <?php echo isset($_SESSION['nom']) ? $_SESSION['nom'] . " " . $_SESSION['prenom'] : 'Utilisateur'; ?> !

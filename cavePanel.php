@@ -15,7 +15,7 @@
             </ul>
         </nav>
     </header>
-    <div class="container">
+    <div class="MenuCentrale">
         <h1 class="welcome-message">WINE CELLAR CONTROL</h1>
         <div class="dashboard-grid">
             <div class="dashboard-card">
