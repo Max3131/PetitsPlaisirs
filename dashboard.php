@@ -62,7 +62,7 @@ session_start();
             <div class="dashboard-card">
                 <h2>Paramètres</h2>
                 <p>Modifiez vos informations personnelles et vos préférences.</p>
-                <button onclick="window.location.href='parametres.php'">Accéder aux paramètres</button>
+                <button onclick="window.location.href='modifAccount.php'">Accéder aux paramètres</button>
             </div>
         </div>
     </div>

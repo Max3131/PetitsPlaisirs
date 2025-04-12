@@ -19,6 +19,10 @@ function verifieProfilU($connexion, $email, $password){
       $_SESSION['nom'] = $row['NomCli']; // Stocker le nom d'utilisateur dans la session
       $_SESSION['prenom'] = $row['PrenomCli']; // Stocker le prénom d'utilisateur dans la session
       $_SESSION['email']=$email;
+      $_SESSION['DateNaissance'] = $row['DateNaissanceCli']; // Stocker la date de naissance dans la session
+      $_SESSION['Adresse'] = $row['AdresseCli']; // Stocker l'adresse dans la session
+      $_SESSION['Ville'] = $row['VilleCli']; // Stocker la ville dans la session
+      $_SESSION['CodePostal'] = $row['CodePostalCli']; // Stocker le code postal dans la session    
       $_SESSION['message']='';
       return true; // Connexion réussie
     }
@@ -73,6 +77,7 @@ function verifieProfilA($connexion, $email, $password){
     } 
 }
 
+///////////////////////////////////////////////////////
 
 function verifieEmail($connexion, $email) {
     // Vérifie si l'email existe déjà dans la base de données
@@ -85,6 +90,7 @@ function verifieEmail($connexion, $email) {
         return false; // L'email n'existe pas
     }
 }
+
 // Fonction permettant de créer un profil utilisateur dans la base de données
 
 function creationProfil($connexion, $prenom, $nom, $date_naissance, $adresse, $ville, $code_postal, $email, $password) {
@@ -106,6 +112,10 @@ function creationProfil($connexion, $prenom, $nom, $date_naissance, $adresse, $v
         $_SESSION['nom'] = $nom;
         $_SESSION['prenom'] = $prenom;
         $_SESSION['email'] = $email;
+        $_SESSION['DateNaissance'] = $date_naissance;
+        $_SESSION['Adresse'] = $adresse;
+        $_SESSION['Ville'] = $ville;
+        $_SESSION['CodePostal'] = $code_postal;
         $_SESSION['message'] = '';
         return true;
     } else {
@@ -115,6 +125,8 @@ function creationProfil($connexion, $prenom, $nom, $date_naissance, $adresse, $v
 
     }
 }
+
+///////////////////////////////////////////////////////////////////////////////////////
 
 //affichage les caves de l'utilisateur connecté
 function afficheCaves($connexion, $email) {
@@ -140,4 +152,26 @@ function afficheCaves($connexion, $email) {
         echo "<p>Aucune cave trouvée.</p>";
     }
 }
+
+
+//////////////////////////////////////////////////////////////////////////////////
+//Modification de la temperature de la cave
+function modifTemp($connexion, $idCave, $temperature) {
+    // Prépare la requête pour mettre à jour la température de la cave
+    $query = "UPDATE cave SET Temperature = '$temperature' WHERE IdCave = '$idCave'";
+    $resultat = mysqli_query($connexion, $query);
+
+    if ($resultat) {
+        // Si la mise à jour réussit, affiche un message de succès
+        echo "<p>Température mise à jour avec succès.</p>";
+    } else {
+        // Si la mise à jour échoue, affiche un message d'erreur
+        echo "<p>Erreur dans la mise à jour de la température.</p>";
+    }
+}
+
+///////////////////////////////////////////////////////////////////////////////////
+//Fonction pour afficher les informations clents
+
 ?>
+
