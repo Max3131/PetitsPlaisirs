@@ -171,7 +171,33 @@ function modifTemp($connexion, $idCave, $temperature) {
 }
 
 ///////////////////////////////////////////////////////////////////////////////////
-//Fonction pour afficher les informations clents
+//Fonction pour modifer les informations clents
+
+function modifInfoClient($connexion, $prenom, $nom, $date_naissance, $adresse, $ville, $code_postal, $email) {
+    $query = "UPDATE Client SET 
+              PrenomCli='$prenom', 
+              NomCli='$nom', 
+              DateNaissanceCli='$date_naissance', 
+              AdresseCli='$adresse', 
+              VilleCli='$ville', 
+              CodePostalCli='$code_postal' 
+              WHERE EmailCli='$email'";
+    $resultat = mysqli_query($connexion, $query);
+
+    if ($resultat) {
+        $_SESSION['message'] = "Informations mises à jour avec succès.";
+        $_SESSION['prenom'] = $prenom;
+        $_SESSION['DateNaissance'] = $date_naissance;
+        $_SESSION['Adresse'] = $adresse;
+        $_SESSION['Ville'] = $ville;
+        $_SESSION['CodePostal'] = $code_postal;
+        $_SESSION['nom'] = $nom;
+        return true;
+    } else {
+        $_SESSION['message'] = "Erreur lors de la mise à jour des informations : " . mysqli_error($connexion);
+        return false;
+    }
+}
 
 ?>
 

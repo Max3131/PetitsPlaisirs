@@ -38,3 +38,11 @@ CREATE TABLE Cave (
     idTypeCave INT,
     CONSTRAINT fk_Cave_TypeCave FOREIGN KEY(idTypeCave) REFERENCES TypeCave(idTypeCave)
 );
+
+INSERT INTO Cave (idCave, VolumeCave, AdresseCave, VilleCave, CodePostalCave, idTypeCave)
+VALUES 
+(1, 500, '123 Rue des Vins', 'Bordeaux', '33000', 1),
+(2, 300, '456 Avenue des Caves', 'Lyon', '69000', 2),
+(3, 400, '789 Boulevard du Vin', 'Paris', '75000', 3);
+
+

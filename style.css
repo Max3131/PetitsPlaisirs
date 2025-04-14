@@ -236,3 +236,17 @@ form p {
     background-color: #a00000;
     transform: scale(1.05);
 }
+
+/*comprendre pourquoi ca ne marche pas quand le css est dans ce fichier et pas directement sur la page cavePanel
+
+.card-link {
+    text-decoration: none !important;
+    color: inherit;
+}
+
+.card-link:hover .card {
+    box-shadow: 0 0 10px rgba(0,0,0,0.2);
+    transform: scale(1.02);
+    transition: 0.2s;
+}
+*/

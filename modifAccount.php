@@ -9,37 +9,10 @@ if (!isset($_SESSION['email'])) {
     exit();
 }
 
-// Connexion à la base de données
-$connexion = mysqli_connect("p:".SERVEUR, NOM, PASSE, BD);
-if (!$connexion) {
-    $_SESSION['message'] = "Problème : Connexion au serveur ou à la base de données impossible.";
-    header("Location: connexion.php");
-    exit();
-}
 
-// Mise à jour des informations personnelles
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $prenom = $_POST['prenom'];
-    $nom = $_POST['nom'];
-    $date_naissance = $_POST['date_naissance'];
-    $adresse = $_POST['adresse'];
-    $ville = $_POST['ville'];
-    $code_postal = $_POST['code_postal'];
 
-    $email = $_SESSION['email'];
-    $query = "UPDATE client SET PrenomCli='$prenom', NomCli='$nom', DateNaissanceCli='$date_naissance', AdresseCli='$adresse', VilleCli='$ville', CodePostalCli='$code_postal' WHERE EmailCli='$email'";
-    $resultat = mysqli_query($connexion, $query);
 
-    if ($resultat) {
-        $_SESSION['message'] = "Informations mises à jour avec succès.";
-        $_SESSION['prenom'] = $prenom;
-        $_SESSION['nom'] = $nom;
-    } else {
-        $_SESSION['message'] = "Erreur lors de la mise à jour des informations.";
-    }
-}
 ?>
-
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -59,7 +32,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </header>
     <div class="MenuCentrale">
         <h1>Modifier Mes Informations</h1>
-        <form action="modifAccount.php" method="post">
+        <form action="modificationCompte.php" method="post">
             <input type="text" name="prenom" placeholder="Prénom" value="<?php echo $_SESSION['prenom']; ?>" required>
             <input type="text" name="nom" placeholder="Nom" value="<?php echo $_SESSION['nom']; ?>" required>
             <input type="date" name="date_naissance" placeholder="Date de naissance" value="<?php echo $_SESSION['DateNaissance']; ?>" required>
