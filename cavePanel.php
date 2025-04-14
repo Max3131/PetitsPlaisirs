@@ -1,3 +1,6 @@
+<?php require('connect.php'); ?>
+<?php require('fonctions.php'); ?>
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -29,52 +32,21 @@
             </ul>
         </nav>
     </header>
-
-    <div class="container mt-5">
-    <h2 class="mt-4" style="color:rgb(255, 255, 255);" ><strong>Liste des caves disponibles</strong></h2>
-    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
-      
-      <!-- Exemple de case cliquable -->
-      <div class="col">
-        <a href="#" class="card-link">
-          <div class="card h-100">
-            <div class="card-body">
-              <h5 class="card-title">Cave de Bordeaux</h5>
-              <p class="card-text"><strong>Type :</strong> Vin rouge</p>
-              <p class="card-text"><strong>Taille :</strong> 120 m²</p>
-            </div>
-          </div>
-        </a>
-      </div>
-
-      <div class="col">
-        <a href="#" class="card-link">
-          <div class="card h-100">
-            <div class="card-body">
-              <h5 class="card-title">Cave de Champagne</h5>
-              <p class="card-text"><strong>Type :</strong> Champagne</p>
-              <p class="card-text"><strong>Taille :</strong> 85 m²</p>
-            </div>
-          </div>
-        </a>
-      </div>
-
-      <div class="col">
-        <a href="#" class="card-link">
-          <div class="card h-100">
-            <div class="card-body">
-              <h5 class="card-title">Cave du Rhône</h5>
-              <p class="card-text"><strong>Type :</strong> Vin blanc</p>
-              <p class="card-text"><strong>Taille :</strong> 95 m²</p>
-            </div>
-          </div>
-        </a>
-      </div>
-
-      <!-- Ajoute d'autres blocs identiques ici -->
-
-    </div>
-  </div>
+    <?php
+    session_start();
+    if (!isset($_SESSION['email'])) {
+        header('Location: index.html');
+        exit();
+    }
+    $connexion = mysqli_connect("p:".SERVEUR, NOM, PASSE, BD);
+    if (!$connexion) {
+      $_SESSION['message'] = "Problème : Connexion au serveur ou à la base de données impossible.";
+      header("Location: connexion.php");
+      exit();
+    }
+    $email = $_SESSION['email'];
+    afficheCaves($connexion, $email);
+    ?>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
         

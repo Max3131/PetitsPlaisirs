@@ -129,6 +129,7 @@ function creationProfil($connexion, $prenom, $nom, $date_naissance, $adresse, $v
 ///////////////////////////////////////////////////////////////////////////////////////
 
 //affichage les caves de l'utilisateur connecté
+/*
 function afficheCaves($connexion, $email) {
     // Prépare la requête pour récupérer les caves de l'utilisateur
     $query = "SELECT * FROM cave WHERE EmailCli = '$email'";
@@ -152,6 +153,7 @@ function afficheCaves($connexion, $email) {
         echo "<p>Aucune cave trouvée.</p>";
     }
 }
+*/
 
 
 //////////////////////////////////////////////////////////////////////////////////
@@ -199,5 +201,40 @@ function modifInfoClient($connexion, $prenom, $nom, $date_naissance, $adresse, $
     }
 }
 
+///////////////////////////////////////////////////////////////////////////////////
+//Fonction pour afficher les caves des clients
+
+function afficheCaves($connexion, $email) {
+    // Prépare la requête pour récupérer les caves de l'utilisateur
+    $query = "SELECT * FROM Cave JOIN Client ON Client.idClient = Cave.idClient WHERE Client.EmailCli = '$email'";
+    $resultat = mysqli_query($connexion, $query);
+
+    if ($resultat && mysqli_num_rows($resultat) > 0) {
+        // Affiche les caves dans un tableau
+        echo '<div class="container mt-5 mb-5">';
+        echo '<h2 class="mt-4" style="color:rgb(255, 255, 255);" ><strong>Liste des caves disponibles</strong></h2>';
+        echo '<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">';
+        while ($row = mysqli_fetch_assoc($resultat)) {
+            
+            echo '<div class="col">';
+            echo '<a href="details.php?id='.$row['idCave'] .'" class="card-link">';
+            //echo '<a href="#" class="card-link">';
+            echo '<div class="card h-100">';
+            echo '<div class="card-body">';
+            echo '<h5 class="card-title">'. $row['NomCave'] .'</h5>';
+            echo '<p class="card-text"><strong>Type :</strong>'. $row['TypeCave'] .'</p>';
+            echo '<p class="card-text"><strong>Taille :</strong> 120 m²</p>';
+            echo '</div>';
+            echo '</div>';
+            echo '</a>';
+            echo '</div>';
+        }
+        echo '</div>';
+        echo '</div>';
+    } else {
+        // Si aucune cave n'est trouvée, affiche un message
+        echo "<p>Aucune cave trouvée.</p>";
+    }
+}
 ?>
 

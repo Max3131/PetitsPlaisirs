@@ -250,3 +250,15 @@ form p {
     transition: 0.2s;
 }
 */
+
+body {
+    overflow-x: hidden;
+}
+.justified-centered {
+    text-align: justify;
+    text-align-last: center;
+}
+.custom-card {
+    width: 500px;
+    height: 500px;
+  }
