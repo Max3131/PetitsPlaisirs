@@ -43,11 +43,17 @@ CREATE TABLE Cave (
     CONSTRAINT fk_Cave_TypeCave FOREIGN KEY(TypeCave) REFERENCES TypeCave(idTypeCave)
 );
 
+INSERT INTO Client (EmailCli, NomCli, PrenomCli, MdpCli, DateNaissanceCli, AdresseCli, VilleCli, CodePostalCli) VALUES
+('john.doe@example.com', 'Doe', 'John', 'password123', '1985-06-15', '123 Main St', 'Paris', '75000'),
+('jane.smith@example.com', 'Smith', 'Jane', 'securepass456', '1990-09-25', '456 Elm St', 'Lyon', '69000'),
+('alice.brown@example.com', 'Brown', 'Alice', 'mypassword789', '1995-03-10', '789 Oak St', 'Marseille', '13000');
+
 INSERT INTO TypeCave (idTypeCave, TempOptiC, LumOptiC, HumOptiC) VALUES
 ('Rouge', 15, 50, 70),
 ('Blanc', 10, 40, 60),
 ('Champagne', 8, 30, 50),
 ('Rosé', 12, 45, 65);
+
 
 INSERT  INTO Cave (NomCave, VolumeCave, AdresseCave, VilleCave, CodePostalCave, TypeCave, idClient) VALUES
 ('Cave de Bordeaux', 1000, '1 Rue de la Liberté', 'Bordeaux', '33000', 'Rouge', 1),
