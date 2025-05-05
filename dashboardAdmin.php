@@ -1,3 +1,13 @@
+<?php 
+// Inclure le fichier de connexion à la base de données
+require('connect.php'); 
+
+// Inclure le fichier contenant les fonctions utilitaires
+require('fonctions.php'); 
+
+// Démarrer la session pour accéder aux variables de session
+session_start(); 
+?>
 
 <!DOCTYPE html>
 <html lang="fr">
@@ -29,8 +39,8 @@
         <div class="dashboard-grid">
             <!-- Carte pour consulter les caves -->
             <div class="dashboard-card">
-                <h2>Mes Caves</h2>
-                <p>Consultez et gérez vos caves à vin.</p>
+                <h2>Consulter Caves</h2>
+                <p>Consultez et gérez les caves à vin.</p>
                 <button onclick="window.location.href='cavePanel.php'">Voir mes caves</button>
             </div>
 
@@ -38,15 +48,9 @@
             <div class="dashboard-card">
                 <h2>Ajouter une Cave</h2>
                 <p>Ajoutez une nouvelle cave à vin à votre collection.</p>
-                <button onclick="window.location.href='createCave.php'">Ajouter une cave</button>
+                <button onclick="window.location.href='ajouterCave.php'">Ajouter une cave</button>
             </div>
 
-            <!-- Carte pour consulter les statistiques -->
-            <div class="dashboard-card">
-                <h2>Statistiques</h2>
-                <p>Analysez vos caves avec des statistiques détaillées.</p>
-                <button onclick="window.location.href='statistiques.php'">Voir les statistiques</button>
-            </div>
 
             <!-- Carte pour accéder aux paramètres utilisateur -->
             <div class="dashboard-card">

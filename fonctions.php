@@ -236,5 +236,35 @@ function afficheCaves($connexion, $email) {
         echo "<p>Aucune cave trouvée.</p>";
     }
 }
+
+/////////////////////////////////////////////////////////////////////////////////////
+//Fonction pour permettre aux adminstrateur d'ajouter une cave à un client
+
+function recupererIdClient($connexion, $email, $dateN) {
+    // Prépare la requête pour récupérer l'ID du client
+    $query = "SELECT idClient FROM client WHERE EmailCli = '$email' AND DateNaissanceCli = '$dateN'";
+    $resultat = mysqli_query($connexion, $query);
+
+    if ($resultat && mysqli_num_rows($resultat) == 1) {
+        $row = mysqli_fetch_assoc($resultat);
+        return $row['idClient']; // Retourne l'ID du client
+    } else {
+        return false; // Aucun client trouvé
+    }
+}
+
+function ajouterCave($connexion, $idClient, $nomCave, $adresse, $codePostal, $ville, $volume, $typeVin) {
+    // Prépare la requête d'insertion
+    $query = "INSERT INTO cave (idClient, NomCave, AdresseCave, CodePostalCave, VilleCave, VolumeCave, TypeCave) 
+              VALUES ('$idClient', '$nomCave', '$adresse', '$codePostal', '$ville', '$volume', '$typeVin')";
+
+    $resultat = mysqli_query($connexion, $query);
+
+    if ($resultat) {
+        return true; // Insertion réussie
+    } else {
+        return false; // Insertion échouée
+    }
+}
 ?>
 

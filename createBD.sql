@@ -55,7 +55,7 @@ CREATE TABLE Capteur (
     ValeurCapteur FLOAT,
     StatusCapteur VARCHAR(20),
     idCave INT,
-    CONSTRAINT fk_Capteur_Cave FOREIGN KEY(idCave) REFERENCES Cave(idCave)
+    CONSTRAINT fk_Capteur_Cave FOREIGN KEY(idCave) REFERENCES Cave(idCave) ON DELETE CASCADE
 );
 
 CREATE TABLE Releve (
@@ -65,7 +65,7 @@ CREATE TABLE Releve (
     UniteReleve VARCHAR(10),
     ValeurReleve FLOAT,
     idCapteur INT,
-    CONSTRAINT fk_Releve_Capteur FOREIGN KEY(idCapteur) REFERENCES Capteur(idCapteur)
+    CONSTRAINT fk_Releve_Capteur FOREIGN KEY(idCapteur) REFERENCES Capteur(idCapteur) ON DELETE CASCADE
 );
 
 CREATE TABLE ChoixUtilisateur (
@@ -75,7 +75,7 @@ CREATE TABLE ChoixUtilisateur (
     UniteChoix VARCHAR(10),
     ValeurChoix FLOAT,
     idCapteur INT,
-    CONSTRAINT fk_ChoixUtilisateur_Capteur FOREIGN KEY(idCapteur) REFERENCES Capteur(idCapteur)
+    CONSTRAINT fk_ChoixUtilisateur_Capteur FOREIGN KEY(idCapteur) REFERENCES Capteur(idCapteur) ON DELETE CASCADE
 );
 
 -- Insérer éventuellement la table INSTALLER et CONTROLLER, en cours de réflexion
@@ -114,7 +114,7 @@ INSERT INTO Client (EmailCli, NomCli, PrenomCli, MdpCli, DateNaissanceCli, Adres
 ('alice.brown@example.com', 'Brown', 'Alice', 'mypassword789', '1995-03-10', '789 Oak St', 'Marseille', '13000');
 
 INSERT INTO Admin (NomAdmin, PrenomAdmin, MdpAdmin, EmailAdmin) VALUES
-('Admin1', '123', 'adminpass1', 'admin1@example.com'),
+('Admin1', 'Ad', '123', 'ad@ad'),
 ('Admin2', 'User', 'adminpass2', 'admin2@example.com');
 
 INSERT INTO TypeCave (idTypeCave, TempOptiC, LumOptiC, HumOptiC) VALUES
