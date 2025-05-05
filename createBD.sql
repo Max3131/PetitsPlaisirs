@@ -2,6 +2,11 @@ DROP TABLE Client;
 DROP TABLE Admin;
 DROP TABLE TypeCave;
 DROP TABLE Cave;
+DROP TABLE Capteur;
+DROP TABLE Releve;
+DROP TABLE ChoixUtilisateur;
+DROP TABLE Produit;
+DROP TABLE Contenir;
 
 CREATE TABLE Client (
     idClient INT AUTO_INCREMENT PRIMARY KEY,
@@ -43,21 +48,107 @@ CREATE TABLE Cave (
     CONSTRAINT fk_Cave_TypeCave FOREIGN KEY(TypeCave) REFERENCES TypeCave(idTypeCave)
 );
 
+CREATE TABLE Capteur (
+    idCapteur INT AUTO_INCREMENT PRIMARY KEY,
+    NomCapteur VARCHAR(50),
+    TypeCapteur VARCHAR(50),
+    ValeurCapteur FLOAT,
+    StatusCapteur VARCHAR(20),
+    idCave INT,
+    CONSTRAINT fk_Capteur_Cave FOREIGN KEY(idCave) REFERENCES Cave(idCave)
+);
+
+CREATE TABLE Releve (
+    idReleve INT AUTO_INCREMENT PRIMARY KEY,
+    DateReleve DATE,
+    HeureReleve TIME,
+    UniteReleve VARCHAR(10),
+    ValeurReleve FLOAT,
+    idCapteur INT,
+    CONSTRAINT fk_Releve_Capteur FOREIGN KEY(idCapteur) REFERENCES Capteur(idCapteur)
+);
+
+CREATE TABLE ChoixUtilisateur (
+    idChoix INT AUTO_INCREMENT PRIMARY KEY,
+    DateChoix DATE,
+    HeureChoix TIME,
+    UniteChoix VARCHAR(10),
+    ValeurChoix FLOAT,
+    idCapteur INT,
+    CONSTRAINT fk_ChoixUtilisateur_Capteur FOREIGN KEY(idCapteur) REFERENCES Capteur(idCapteur)
+);
+
+-- Insérer éventuellement la table INSTALLER et CONTROLLER, en cours de réflexion
+
+CREATE TABLE Produit (
+    idProduit INT AUTO_INCREMENT PRIMARY KEY,
+    NomProduit VARCHAR(50),
+    TypeProduit VARCHAR(50),
+    AnneeProduit INT,
+    TempOptiProduit INT,
+    LumOptiProduit INT,
+    HumOptiProduit INT,
+    idCave INT,
+    CONSTRAINT fk_Produit_Cave FOREIGN KEY(idCave) REFERENCES Cave(idCave)
+);
+
+CREATE TABLE Contenir (
+    idContenir INT AUTO_INCREMENT PRIMARY KEY,
+    idProduit INT,
+    idCave INT,
+    QuantiteProduit INT,
+    CONSTRAINT fk_Contenir_Produit FOREIGN KEY(idProduit) REFERENCES Produit(idProduit),
+    CONSTRAINT fk_Contenir_Cave FOREIGN KEY(idCave) REFERENCES Cave(idCave)
+);
+
+
+
+
+
+
+
+
 INSERT INTO Client (EmailCli, NomCli, PrenomCli, MdpCli, DateNaissanceCli, AdresseCli, VilleCli, CodePostalCli) VALUES
-('john.doe@example.com', 'Doe', 'John', 'password123', '1985-06-15', '123 Main St', 'Paris', '75000'),
+('a@a', 'Doe', 'John', '123', '1985-06-15', '123 Main St', 'Paris', '75000'),
 ('jane.smith@example.com', 'Smith', 'Jane', 'securepass456', '1990-09-25', '456 Elm St', 'Lyon', '69000'),
 ('alice.brown@example.com', 'Brown', 'Alice', 'mypassword789', '1995-03-10', '789 Oak St', 'Marseille', '13000');
 
+INSERT INTO Admin (NomAdmin, PrenomAdmin, MdpAdmin, EmailAdmin) VALUES
+('Admin1', '123', 'adminpass1', 'admin1@example.com'),
+('Admin2', 'User', 'adminpass2', 'admin2@example.com');
+
 INSERT INTO TypeCave (idTypeCave, TempOptiC, LumOptiC, HumOptiC) VALUES
-('Rouge', 15, 50, 70),
-('Blanc', 10, 40, 60),
-('Champagne', 8, 30, 50),
-('Rosé', 12, 45, 65);
+('Vin', 15, 50, 70),
+('Fromage', 10, 40, 60),
+('Cigare', 18, 30, 65);
 
+INSERT INTO Cave (NomCave, VolumeCave, AdresseCave, VilleCave, CodePostalCave, TypeCave, idClient) VALUES
+('Cave de Bordeaux', 1000, '1 Rue de la Liberté', 'Bordeaux', '33000', 'Vin', 1),
+('Cave de Bourgogne', 800, '2 Rue des Vins', 'Dijon', '21000', 'Vin', 1),
+('Cave de Bourgogne', 800, '2 Rue des Vins', 'Dijon', '21000', 'Vin', 1),
+('Cave de Champagne', 500, '3 Avenue des Bulles', 'Reims', '51100', 'Vin', 2),
+('Cave de Provence', 700, '5 Chemin des Vins', 'Avignon', '84000', 'Vin', 2),
+('Cave de Sancerre', 400, '6 Rue des Terroirs', 'Sancerre', '18300', 'Vin', 3),
+('Cave de Roquefort', 1200, '3 Avenue des Fromages', 'Roquefort', '12250', 'Fromage', 2),
+('Cave de La Havane', 600, '4 Chemin des Cigares', 'Havane', '10100', 'Cigare', 3);
 
-INSERT  INTO Cave (NomCave, VolumeCave, AdresseCave, VilleCave, CodePostalCave, TypeCave, idClient) VALUES
-('Cave de Bordeaux', 1000, '1 Rue de la Liberté', 'Bordeaux', '33000', 'Rouge', 1),
-('Cave de Bourgogne', 800, '2 Rue des Vins', 'Dijon', '21000', 'Blanc', 1),
-('Cave de Champagne', 1200, '3 Avenue des Vins', 'Reims', '51100', 'Champagne', 1),
-('Cave de Provence', 600, '4 Chemin des Vignes', 'Avignon', '84000', 'Rosé', 1);
+INSERT INTO Capteur (NomCapteur, TypeCapteur, ValeurCapteur, StatusCapteur, idCave) VALUES
+('TempSensor1', 'Temperature', 12.5, 'Active', 1),
+('HumSensor1', 'Humidity', 65.0, 'Active', 1);
+
+INSERT INTO Releve (DateReleve, HeureReleve, UniteReleve, ValeurReleve, idCapteur) VALUES
+('2025-05-01', '12:00:00', 'Celsius', 12.5, 1),
+('2025-05-01', '12:30:00', 'Percent', 65.0, 2);
+
+INSERT INTO ChoixUtilisateur (DateChoix, HeureChoix, UniteChoix, ValeurChoix, idCapteur) VALUES
+('2025-05-02', '14:00:00', 'Celsius', 13.0, 1),
+('2025-05-02', '14:30:00', 'Percent', 60.0, 2);
+
+INSERT INTO Produit (NomProduit, TypeProduit, AnneeProduit, TempOptiProduit, LumOptiProduit, HumOptiProduit, idCave) VALUES
+('Merlot', 'Vin Rouge', 2020, 15, 50, 70, 1),
+('Chardonnay', 'Vin Blanc', 2021, 10, 40, 60, 2);
+
+INSERT INTO Contenir (idProduit, idCave, QuantiteProduit) VALUES
+(1, 1, 50),
+(2, 2, 30);
 
