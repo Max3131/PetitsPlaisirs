@@ -237,6 +237,39 @@ function afficheCaves($connexion, $email) {
     }
 }
 
+
+function afficherToutesLesCaves($connexion) {
+    // Prépare la requête pour récupérer toutes les caves
+    $query = "SELECT * FROM cave";
+    $resultat = mysqli_query($connexion, $query);
+
+    if ($resultat && mysqli_num_rows($resultat) > 0) {
+        // Affiche les caves dans un tableau
+        echo '<div class="container mt-5 mb-5">';
+        echo '<h2 class="mt-4" style="color:rgb(255, 255, 255);" ><strong>Liste des caves disponibles</strong></h2>';
+        echo '<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">';
+        while ($row = mysqli_fetch_assoc($resultat)) {
+            echo '<div class="col">';
+            echo '<a href="details.php?id='.$row['idCave'] .'" class="card-link">';
+            //echo '<a href="#" class="card-link">';
+            echo '<div class="card h-100">';
+            echo '<div class="card-body">';
+            echo '<h5 class="card-title">'. $row['NomCave'] .'</h5>';
+            echo '<p class="card-text"><strong>Type :</strong>'. $row['TypeCave'] .'</p>';
+            echo '<p class="card-text"><strong>Identifiant de la cave :</strong> '. $row['idCave'] .'</p>';
+            echo '</div>';
+            echo '</div>';
+            echo '</a>';
+            echo '</div>';
+        }
+        echo '</div>';
+        echo '</div>';
+    } else {
+        // Si aucune cave n'est trouvée, affiche un message
+        echo "<p>Aucune cave trouvée.</p>";
+    }
+}
+
 /////////////////////////////////////////////////////////////////////////////////////
 //Fonction pour permettre aux adminstrateur d'ajouter une cave à un client
 

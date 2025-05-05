@@ -22,9 +22,8 @@ session_start();
     <header class="menu-banner">
         <nav>
             <ul>
-                <li><a href="index.html">Accueil</a></li> <!-- Lien vers la page d'accueil -->
-                <li><a href="dashboard.php">Dashboard</a></li> <!-- Lien vers le tableau de bord -->
-                <li><a href="logout.php">Déconnexion</a></li> <!-- Lien pour se déconnecter -->
+                <li><a href="dashboard.html">Accueil</a></li> <!-- Lien vers la page d'accueil -->
+                <li><a href="index.php">Déconnexion</a></li> <!-- Lien vers le tableau de bord -->
             </ul>
         </nav>
     </header>

@@ -41,8 +41,7 @@ session_start();
         <nav>
             <ul>
                 <li><a href="index.html">Accueil</a></li> <!-- Lien vers la page d'accueil -->
-                <li><a href="dashboard.php">Dashboard</a></li> <!-- Lien vers le tableau de bord -->
-                <li><a href="logout.php">Déconnexion</a></li> <!-- Lien pour se déconnecter -->
+                <li><a href="dashboardAdmin.php">Dashboard</a></li> <!-- Lien vers le tableau de bord -->
             </ul>
         </nav>
     </header>
@@ -53,42 +52,31 @@ session_start();
             <h3 class="text-center mb-4">Ajouter des capteurs</h3>
             <form method="POST" action="ajouterCave2.php">
                 <div class="mb-3">
-                    <label for="E-mail" class="form-label">E-mail (Client)</label>
-                    <input type="text" class="form-control" id="E-mail" placeholder="Jean.Dupont@gmail.com" required>
+                    <label for="idCave" class="form-label">identifiant de la cave</label>
+                    <input type="number" class="form-control" id="idCave" name="idCave" placeholder="1" required>
                 </div>
                 <div class="mb-3">
-                    <label for="DateN" class="form-label">Date de naissance (Client)</label>
-                    <input type="date" class="form-control" id="DateN" placeholder="18/04/2005" required>
+                    <label for="nomCapteur" class="form-label">Nom du capteur</label>
+                    <input type="text" class="form-control" id="nomCapteur" name="nomCapteur" placeholder="temperature 1" required>
                 </div>
                 <div class="mb-3">
-                    <label for="NomCave" class="form-label">Nom de la cave</label>
-                    <input type="text" class="form-control" id="NomCave" placeholder="Cave personnelle" required>
+                    <label for="valeurCpateur" class="form-label">Valeur du capteur</label>
+                    <input type="text" class="form-control" id="valeurCapteur" name="valeurCapteur" placeholder="Cave personnelle" required>
                 </div>
                 <div class="mb-3">
-                    <label for="volume" class="form-label">Volume (en m3)</label>
-                    <input type="number" class="form-control" id="volume" placeholder="150" required>
+                    <label for="statusCapteur" class="form-label">Status du Capteur</label>
+                    <input type="text" class="form-control" id="statusCapteur" name="satutusCapteur" placeholder="150" required>
+                </div>put type="text" class="form-control" id="codePostal" placeholder="75000" required>
                 </div>
                 <div class="mb-3">
-                    <label for="adresse" class="form-label">Adresse de la cave</label>
-                    <input type="text" class="form-control" id="adresse" placeholder="123 Rue de la Cave" required>
-                </div>
-                <div class="mb-3">
-                    <label for="ville" class="form-label">Ville</label>
-                    <input type="text" class="form-control" id="ville" placeholder="Paris" required>
-                </div>
-                <div class="mb-3">
-                    <label for="codePostal" class="form-label">Code Postal</label>
-                    <input type="text" class="form-control" id="codePostal" placeholder="75000" required>
-                </div>
-                <div class="mb-3">
-                    <label for="wineType" class="form-label">Type de vin</label>
+                    <label for="typeCapteur" class="form-label">Type de cpateur</label>
                     <select class="form-select" id="wineType" required>
                         <option value="">Choisir...</option>
-                        <option value="rouge">Vin</option>
-                        <option value="blanc">Ciagre</option>
-                        <option value="champagne">Fromage</option>
+                        <option value="rouge">Interrupteur</option>
+                        <option value="blanc">Lumiere</option>
+                        <option value="champagne">Humidite</option>
                     </select>
-                </div>
+                </div>  
                 <div class="d-grid">
                     <button type="submit" class="btn btn-primary">Ajouter la cave</button>
                 </div>
