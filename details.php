@@ -131,6 +131,64 @@
         </div>
     </main>
 
+    <body>
+<div class="container py-5">
+  <h2 class="mb-4 text-center">Inventaire de la Cave</h2>
+
+  <div class="table-responsive">
+    <table class="table table-bordered table-striped align-middle text-center">
+      <thead class="table-dark">
+        <tr>
+          <th>ID</th>
+          <th>Nom du produit</th>
+          <th>Quantité</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Exemple de produit -->
+        <tr>
+          <td>1</td>
+          <td>Vin Rouge 2018</td>
+          <td><span class="quantity">12</span></td>
+          <td>
+            <div class="quantity-control justify-content-center">
+              <button class="btn btn-sm btn-success">+</button>
+              <button class="btn btn-sm btn-danger">−</button>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td>2</td>
+          <td>Champagne Brut</td>
+          <td><span class="quantity">6</span></td>
+          <td>
+            <div class="quantity-control justify-content-center">
+              <button class="btn btn-sm btn-success">+</button>
+              <button class="btn btn-sm btn-danger">−</button>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td>3</td>
+          <td>Fromage Affiné</td>
+          <td><span class="quantity">4</span></td>
+          <td>
+            <div class="quantity-control justify-content-center">
+              <button class="btn btn-sm btn-success">+</button>
+              <button class="btn btn-sm btn-danger">−</button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <!-- Bouton pour ajouter un produit -->
+  <div class="text-center mt-4">
+    <a href="#" class="btn btn-primary">➕ Ajouter un produit</a>
+  </div>
+</div>
+
     <!-- Pied de page -->
     <footer class="footer">
         <p>&copy; 2023 Petit Plaisir. Tous droits réservés.</p>
