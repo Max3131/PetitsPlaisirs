@@ -1,199 +1,225 @@
-<?php require('connect.php'); ?>
-<?php require('fonctions.php'); ?>
+<?php require('connect.php');
+require('fonctions.php');
+
+  session_start();
+  if (!isset($_SESSION['email'])) {
+    header('Location: index.html');
+    exit();
+  }
+  $id = $_GET['id'];
+  $connexion = mysqli_connect("p:".SERVEUR, NOM, PASSE, BD);
+  if (!$connexion) {
+    $_SESSION['message'] = "Problème : Connexion au serveur ou à la base de données impossible.";
+    header("Location: connexion.php");
+    exit();
+  }
+  modifierQuantite($connexion); ?>
 
 <!doctype html>
 <html>
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="style.css">
-    <title>Accueil</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <title>Accueil</title>
 </head>
 
 <body>
-    <?php
-    session_start();
-    if (!isset($_SESSION['email'])) {
-        header('Location: index.html');
-        exit();
-    }
-    $id = $_GET['id'];
-    $connexion = mysqli_connect("p:".SERVEUR, NOM, PASSE, BD);
-    if (!$connexion) {
-        $_SESSION['message'] = "Problème : Connexion au serveur ou à la base de données impossible.";
-        header("Location: connexion.php");
-        exit();
-    }
-    ?>
-    <!-- <nav class="navbar navbar-expand-md shadow sticky-top" style="background-color: lightskyblue;" data-bs-theme="dark">
-        <div class="container-fluid">
-                <a class="navbar-brand text-light fw-bold" href="Accueil.html">Size Me </a>
 
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#nav">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                  
-              
-                <div class="collapse navbar-collapse justify-content-end" id="nav">
-                    <ul class="navbar-nav">
-                        <li class="nav-item">
-                            <a class="nav-link" href="Accueil.html">Compte</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link active" href="equipe.html">Dashboard</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="equipe.html">Mes produits</a>
-                        </li>
-                    </ul>
-                </div>
-                
+  <!-- Barre de menu en haut de la page -->
+  <header class="menu-banner">
+    <nav>
+      <ul>
+        <li><a href="index.html">Accueil</a></li>
+        <li><a href="dashboard.php">Dashboard</a></li>
+        <li><a href="logout.php">Déconnexion</a></li>
+      </ul>
+    </nav>
+  </header>
+  
+  <main>
+    <div class="container-fluid">
+      <section>
+        <div class="row mt-5 mb-4">
+          <div class="col-12 text-center">
+            <h2>Dashboard <?php echo $id ?></h2>
+          </div> 
         </div>
-    </nav> -->
-
-    <!-- Barre de menu en haut de la page -->
-    <header class="menu-banner">
-        <nav>
-            <ul>
-                <li><a href="index.html">Accueil</a></li> <!-- Lien vers la page d'accueil -->
-                <li><a href="dashboard.php">Dashboard</a></li> <!-- Lien vers le tableau de bord -->
-                <li><a href="logout.php">Déconnexion</a></li> <!-- Lien pour se déconnecter -->
-            </ul>
-        </nav>
-    </header>
-    
-    <main>
-        <div class="container-fluid">
-            <section>
-                <div class="row mt-5 mb-4">
-                    <div class="col-12 text-center">
-                        <h2>Dashboard <?php echo $id ?></h2>
-                    </div> 
+        <div class="row">
+          <div class="col-8">
+            <div class="row">
+              <div class="col-4 d-flex justify-content-center">
+                <div class="card" style="width: 18rem;">
+                  <div class="card-body">
+                    <h5 class="card-title">Luminosité</h5>
+                    <h1 class="card-text">26 Lux</h1>
+                    <p class="card-text">Recommandé : 26 Lux</p>
+                  </div>
                 </div>
-                <div class="row">
-                    <div class="col-8">
-                        <div class="row">
-                            <div class="col-4 d-flex justify-content-center">
-                                <div class="card" style="width: 18rem;">
-                                    <!--img src="..." class="card-img-top" alt="..."!-->
-                                    <div class="card-body">
-                                      <h5 class="card-title">Luminosité</h5>
-                                      <h1 class="card-text">26 Lux</h1>
-                                      <p class="card-text">Recommandé : 26 Lux</p>
-                                      <!--a href="#" class="btn btn-primary">Go somewhere</a!-->
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-4 d-flex justify-content-center">
-                                <div class="card" style="width: 18rem;">
-                                    <!--img src="..." class="card-img-top" alt="..."!-->
-                                    <div class="card-body">
-                                      <h5 class="card-title">Luminosité</h5>
-                                      <h1 class="card-text">26 Lux</h1>
-                                      <p class="card-text">Recommandé : 26 Lux</p>
-                                      <!--a href="#" class="btn btn-primary">Go somewhere</a!-->
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-4 d-flex justify-content-center">
-                                <div class="card" style="width: 18rem;">
-                                    <!--img src="..." class="card-img-top" alt="..."!-->
-                                    <div class="card-body">
-                                      <h5 class="card-title">Luminosité</h5>
-                                      <h1 class="card-text">26 Lux</h1>
-                                      <p class="card-text">Recommandé : 26 Lux</p>
-                                      <!--a href="#" class="btn btn-primary">Go somewhere</a!-->
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        
-                    </div>
-                    <div class="col-4">
-                        <div class="row">
-                            <div class="col d-flex justify-content-center align-items-center">
-                                <div class="card custom-card">
-                                    <h5 class="card-header">Caractéristiques de la cave</h5>
-                                    <div class="card-body">
-                                        <h5 class="card-title">Volume</h5>
-                                        <p class="card-text">40 m3</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        
-                    </div>
+              </div>
+              <div class="col-4 d-flex justify-content-center">
+                <div class="card" style="width: 18rem;">
+                  <div class="card-body">
+                    <h5 class="card-title">Luminosité</h5>
+                    <h1 class="card-text">26 Lux</h1>
+                    <p class="card-text">Recommandé : 26 Lux</p>
+                  </div>
                 </div>
-            </section>
+              </div>
+              <div class="col-4 d-flex justify-content-center">
+                <div class="card" style="width: 18rem;">
+                  <div class="card-body">
+                    <h5 class="card-title">Luminosité</h5>
+                    <h1 class="card-text">26 Lux</h1>
+                    <p class="card-text">Recommandé : 26 Lux</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-4">
+            <div class="row">
+              <div class="col d-flex justify-content-center align-items-center">
+                <div class="card custom-card">
+                  <h5 class="card-header">Caractéristiques de la cave</h5>
+                  <div class="card-body">
+                    <h5 class="card-title">Volume</h5>
+                    <p class="card-text">40 m3</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-    </main>
+      </section>
+    </div>
+  </main>
 
-    <body>
-<div class="container py-5">
-  <h2 class="mb-4 text-center">Inventaire de la Cave</h2>
+  <?php
+  afficherInventaire($connexion, $id);
+  ?>
+  
 
-  <div class="table-responsive">
-    <table class="table table-bordered table-striped align-middle text-center">
-      <thead class="table-dark">
-        <tr>
-          <th>ID</th>
-          <th>Nom du produit</th>
-          <th>Quantité</th>
-          <th>Actions</th>
-        </tr>
-      </thead>
-      <tbody>
-        <!-- Exemple de produit -->
-        <tr>
-          <td>1</td>
-          <td>Vin Rouge 2018</td>
-          <td><span class="quantity">12</span></td>
-          <td>
-            <div class="quantity-control justify-content-center">
-              <button class="btn btn-sm btn-success">+</button>
-              <button class="btn btn-sm btn-danger">−</button>
-            </div>
-          </td>
-        </tr>
-        <tr>
-          <td>2</td>
-          <td>Champagne Brut</td>
-          <td><span class="quantity">6</span></td>
-          <td>
-            <div class="quantity-control justify-content-center">
-              <button class="btn btn-sm btn-success">+</button>
-              <button class="btn btn-sm btn-danger">−</button>
-            </div>
-          </td>
-        </tr>
-        <tr>
-          <td>3</td>
-          <td>Fromage Affiné</td>
-          <td><span class="quantity">4</span></td>
-          <td>
-            <div class="quantity-control justify-content-center">
-              <button class="btn btn-sm btn-success">+</button>
-              <button class="btn btn-sm btn-danger">−</button>
-            </div>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+    <div class="text-center mt-4">
+      <!-- <a href="#" class="btn btn-primary">➕ Ajouter un produit</a> -->
+      <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#ajoutProduitModal">
+      Ajouter un produit
+  </button>
+    </div>
   </div>
-  <!-- Bouton pour ajouter un produit -->
-  <div class="text-center mt-4">
-    <a href="#" class="btn btn-primary">➕ Ajouter un produit</a>
+
+  <footer class="footer">
+    <p>&copy; 2023 Petit Plaisir. Tous droits réservés.</p>
+    <p><a href="mentions_legales.html">Mentions légales</a> | <a href="contact.html">Contactez-nous</a></p>
+  </footer>
+  
+
+  <!-- Modal pour ajouter un produit -->
+  <div class="modal fade" id="ajoutProduitModal" tabindex="-1" aria-labelledby="ajoutProduitLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content text-danger">
+      <div class="modal-header">
+        <h5 class="modal-title" id="ajoutProduitLabel">Ajouter un produit</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fermer"></button>
+      </div>
+      <div class="modal-body">
+        <form id="formAjoutProduit">
+          <div class="mb-3">
+            <label for="nomProduit" class="form-label">Nom</label>
+            <input type="text" class="form-control" id="nomProduit" required>
+          </div>
+          <div class="mb-3">
+            <label for="typeProduit" class="form-label">Type</label>
+            <input type="text" class="form-control" id="typeProduit" required>
+          </div>
+          <div class="mb-3">
+            <label for="anneeProduit" class="form-label">Année</label>
+            <input type="number" class="form-control" id="anneeProduit" required>
+          </div>
+          <div class="mb-3">
+            <label for="quantiteProduit" class="form-label">Quantité</label>
+            <input type="number" class="form-control" id="quantiteProduit" required>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+        <button type="button" class="btn btn-success" onclick="ajouterProduit(<?php echo $id; ?>)">Ajouter</button>
+      </div>
+    </div>
   </div>
 </div>
 
-    <!-- Pied de page -->
-    <footer class="footer">
-        <p>&copy; 2023 Petit Plaisir. Tous droits réservés.</p>
-        <p><a href="mentions_legales.html">Mentions légales</a> | <a href="contact.html">Contactez-nous</a></p>
-    </footer>
-            
+<script>
+    // Déclare une fonction JavaScript pour modifier la quantité d'un produit
+    function modifierQuantite(idProduit, action) {
+      // Effectue une requête HTTP POST via fetch
+      fetch('', {
+        method: 'POST', // Spécifie que la méthode est POST
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' }, // Définit le type de contenu
+        body: `ajax_action=modifier_quantite&id=${idProduit}&action=${action}` // Envoie les données nécessaires au serveur
+      })
+      .then(response => response.json()) // Convertit la réponse en JSON
+      .then(data => {
+        // Vérifie si la réponse indique un succès
+        if (data.success) {
+          // Met à jour la quantité affichée pour le produit correspondant
+          document.getElementById('qte-' + idProduit).textContent = data.nouvelle_quantite;
+        } else {
+          // Affiche un message d'erreur si la requête a échoué
+          alert("Erreur : " + data.message);
+        }
+      })
+      .catch(error => console.error("Erreur réseau :", error)); // Gère les erreurs réseau
+    }
 
+    function supprimerProduit(idProduit) {
+      if (confirm("Voulez-vous vraiment supprimer ce produit ?")) {
+        fetch('', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+          body: `ajax_action=supprimer_produit&idProduit=${idProduit}`
+        })
+        .then(response => response.json())
+        .then(data => {
+          if (data.success) {
+            window.location.reload();
+          } else {
+            alert("Erreur lors de la suppression.");
+          }
+        });
+      }
+    }
+
+    function afficherFormulaire() {
+      document.getElementById('formAjout').style.display = 'block';
+    }
+
+    function ajouterProduit(idCave) {
+      const nom = document.getElementById('nomProduit').value;
+      const type = document.getElementById('typeProduit').value;
+      const annee = document.getElementById('anneeProduit').value;
+      const quantite = document.getElementById('quantiteProduit').value;
+
+      fetch('', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: `ajax_action=ajouter_produit&idCave=${idCave}&nom=${encodeURIComponent(nom)}&type=${encodeURIComponent(type)}&annee=${annee}&quantite=${quantite}`
+      })
+      .then(response => response.json())
+      .then(data => {
+        if (data.success) {
+          alert("Produit ajouté !");
+          window.location.reload(); // recharge pour voir le nouveau produit
+        } else {
+          alert("Erreur : " + data.message);
+        }
+      });
+    }
+
+  </script>
 </body>
+</html>

@@ -85,11 +85,9 @@ CREATE TABLE Produit (
     NomProduit VARCHAR(50),
     TypeProduit VARCHAR(50),
     AnneeProduit INT,
-    TempOptiProduit INT,
-    LumOptiProduit INT,
-    HumOptiProduit INT,
     idCave INT,
-    CONSTRAINT fk_Produit_Cave FOREIGN KEY(idCave) REFERENCES Cave(idCave)
+    QuantiteProduit INT,
+    CONSTRAINT fk_Produit_Cave FOREIGN KEY(idCave) REFERENCES Cave(idCave) ON DELETE CASCADE
 );
 
 CREATE TABLE Contenir (
@@ -143,10 +141,14 @@ INSERT INTO Releve (DateReleve, HeureReleve, UniteReleve, ValeurReleve, idCapteu
 INSERT INTO ChoixUtilisateur (DateChoix, HeureChoix, UniteChoix, ValeurChoix, idCapteur) VALUES
 ('2025-05-02', '14:00:00', 'Celsius', 13.0, 1),
 ('2025-05-02', '14:30:00', 'Percent', 60.0, 2);
-
-INSERT INTO Produit (NomProduit, TypeProduit, AnneeProduit, TempOptiProduit, LumOptiProduit, HumOptiProduit, idCave) VALUES
-('Merlot', 'Vin Rouge', 2020, 15, 50, 70, 1),
-('Chardonnay', 'Vin Blanc', 2021, 10, 40, 60, 2);
+INSERT INTO Produit (NomProduit, TypeProduit, AnneeProduit, idCave, QuantiteProduit) VALUES
+('Merlot', 'Vin Rouge', 2020, 1, 10),
+('Cabernet Sauvignon', 'Vin Rouge', 2019, 1, 20),
+('Chardonnay', 'Vin Blanc', 2021, 2, 30),
+('Sauvignon Blanc', 'Vin Blanc', 2020, 2, 15),
+('Pinot Noir', 'Vin Rouge', 2018, 3, 25),
+('Syrah', 'Vin Rouge', 2017, 3, 5),
+('Chardonnay', 'Vin Blanc', 2021, 2, 10);
 
 INSERT INTO Contenir (idProduit, idCave, QuantiteProduit) VALUES
 (1, 1, 50),

@@ -299,5 +299,111 @@ function ajouterCave($connexion, $idClient, $nomCave, $adresse, $codePostal, $vi
         return false; // Insertion échouée
     }
 }
+
+////////////////////////////////////////////////////////////////////////////////////////
+//Fonction pour permettre d'afficher l'inventaire d'une cave
+
+function afficherInventaire($connexion, $idCave) {
+    // Prépare la requête pour récupérer l'inventaire de la cave
+    $query = "SELECT * FROM Produit WHERE idCave = '$idCave'";
+    $resultat = mysqli_query($connexion, $query);
+
+    if ($resultat && mysqli_num_rows($resultat) > 0) {
+        // Affiche l'inventaire dans un tableau
+        echo '<div class="container py-5">';
+        echo '<h2 class="mb-4 text-center">Inventaire de la Cave</h2>';
+
+        echo '<div class="table-responsive">';
+        echo '<table class="table table-bordered table-striped align-middle text-center">';
+        echo '<thead class="table-dark">';
+        echo '<tr>';
+        echo '<th>ID</th>';
+        echo '<th>Nom</th>';
+        echo '<th>Type</th>';
+        echo '<th>Annee</th>';
+        echo '<th>Quantité</th>';
+        echo '<th>Actions</th>';
+        echo '</tr>';
+        echo '</thead>';
+        echo '<tbody>';
+        while ($row = mysqli_fetch_assoc($resultat)) {
+            echo '<tr>';
+            echo '<td>' . $row['idProduit'] . '</td>';
+            echo '<td>' . $row['NomProduit'] . '</td>';
+            echo '<td>' . $row['TypeProduit'] . '</td>';
+            echo '<td>' . $row['AnneeProduit'] . '</td>';
+            echo '<td><span class="quantity" id="qte-' . $row['idProduit'] . '">' . $row['QuantiteProduit'] . '</span></td>';
+            echo '<td>';
+            echo '<div class="quantity-control justify-content-center">';
+            echo '<button class="btn btn-sm btn-success" onclick="modifierQuantite(' . $row['idProduit'] . ', \'plus\')">+</button>';
+            echo '<button class="btn btn-sm btn-danger" onclick="modifierQuantite(' . $row['idProduit'] . ', \'moins\')">-</button>';
+            echo '<button class="btn btn-sm btn-outline-danger" onclick="supprimerProduit(' . $row['idProduit'] . ')">';
+            echo '<i class="bi bi-trash"></i>';
+            echo '</div>';
+            echo '</td>';
+            echo '</tr>';
+        }
+        echo '</tbody>';
+        echo '</table>';
+        echo '</div>';
+    }
+    else {
+        // Si aucun vin n'est trouvé, affiche un message
+        echo "<p>Aucun vin trouvé dans cette cave.</p>";
+    }
+}
+
+//////////////////////////////////////////////////////////////////////////////////////////
+//Fonction pour permettre de motifier la quantité d'un article dans l'inventaire d'une cave (ajout, suppression, modification)
+
+function modifierQuantite($connexion) {
+    if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['ajax_action'])) {
+        if ($_POST['ajax_action'] === 'modifier_quantite') {
+            $id = intval($_POST['id']);
+            $action = $_POST['action'];
+
+            $result = mysqli_query($connexion, "SELECT QuantiteProduit FROM Produit WHERE idProduit = $id");
+            if ($row = mysqli_fetch_assoc($result)) {
+                $quantite = $row['QuantiteProduit'];
+                if ($action === 'plus') $quantite++;
+                elseif ($action === 'moins' && $quantite > 0) $quantite--;
+
+                mysqli_query($connexion, "UPDATE Produit SET QuantiteProduit = $quantite WHERE idProduit = $id");
+                echo json_encode(['success' => true, 'nouvelle_quantite' => $quantite]);
+            } else {
+                echo json_encode(['success' => false, 'message' => 'Produit non trouvé']);
+            }
+            exit();
+        }
+
+        if ($_POST['ajax_action'] === 'ajouter_produit') {
+            $idCave = intval($_POST['idCave']);
+            $nom = mysqli_real_escape_string($connexion, $_POST['nom']);
+            $type = mysqli_real_escape_string($connexion, $_POST['type']);
+            $annee = intval($_POST['annee']);
+            $quantite = intval($_POST['quantite']);
+
+            $sql = "INSERT INTO Produit (NomProduit, TypeProduit, AnneeProduit, QuantiteProduit, idCave) 
+                    VALUES ('$nom', '$type', $annee, $quantite, $idCave)";
+            if (mysqli_query($connexion, $sql)) {
+                echo json_encode(['success' => true]);
+            } else {
+                echo json_encode(['success' => false, 'message' => mysqli_error($connexion)]);
+            }
+            exit();
+        }
+
+        if ($_POST['ajax_action'] === 'supprimer_produit') {
+            $idProduit = intval($_POST['idProduit']);
+            $sql = "DELETE FROM Produit WHERE idProduit = $idProduit";
+            if (mysqli_query($connexion, $sql)) {
+                echo json_encode(['success' => true]);
+            } else {
+                echo json_encode(['success' => false, 'message' => mysqli_error($connexion)]);
+            }
+            exit();
+        }
+    }
+}
 ?>
 
