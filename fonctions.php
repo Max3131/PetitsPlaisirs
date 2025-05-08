@@ -405,5 +405,50 @@ function modifierQuantite($connexion) {
         }
     }
 }
+
+///////////////////////////////////////////////////////////////////////////////////////////
+//Fonction pour affciher les capteurs d'une cave
+
+function afficherCapteurs($connexion, $idCave) {
+    // Prépare la requête pour récupérer les capteurs de la cave
+    $query = "SELECT * FROM Capteur WHERE idCave = '$idCave'";
+    $resultat = mysqli_query($connexion, $query);
+
+    if ($resultat && mysqli_num_rows($resultat) > 0) {
+        // Affiche les capteurs dans un tableau
+        echo '<div class="row mt-5">';
+        echo '<div class="col d-flex justify-content-center align-items-center">';
+        echo '<div class="card w-100" style="max-height: 400px; overflow-y: auto;">';
+        echo '<h5 class="card-header">Vos capteurs</h5>';
+        echo '<div class="card-body">';
+        echo '<ul class="list-group">';
+        while ($row = mysqli_fetch_assoc($resultat)) {
+            echo '<li class="list-group-item d-flex justify-content-between align-items-center">';
+            echo '<div>' . $row['NomCpateur'] . '</div>';
+            echo '<div>';
+            echo '<button type="button" class="btn btn-sm btn-success me-2">';
+            echo '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus" viewBox="0 0 16 16">';
+            echo '<path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4"/>';
+            echo '</svg>';
+            echo '</button>';
+            echo '<button type="button" class="btn btn-sm btn-danger">';
+            echo '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash-fill" viewBox="0 0 16 16">';
+            echo '<path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5M8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5m3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0"/>';
+            echo '</svg>';
+            echo '</button>';
+            echo '</div>';
+            echo '</li>';
+        }
+        echo '</ul>';   
+        echo '</div>';
+        echo '</div>';
+        echo '</div>';   
+        echo '</div>';
+        echo '</div>';
+    } else {
+        // Si aucun capteur n'est trouvé, affiche un message
+        echo "<p>Aucun capteur trouvé.</p>";
+    }
+}
 ?>
 

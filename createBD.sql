@@ -131,8 +131,8 @@ INSERT INTO Cave (NomCave, VolumeCave, AdresseCave, VilleCave, CodePostalCave, T
 ('Cave de La Havane', 600, '4 Chemin des Cigares', 'Havane', '10100', 'Cigare', 3);
 
 INSERT INTO Capteur (NomCapteur, TypeCapteur, ValeurCapteur, StatusCapteur, idCave) VALUES
-('TempSensor1', 'Temperature', 12.5, 'Active', 1),
-('HumSensor1', 'Humidity', 65.0, 'Active', 1);
+('TempSensor1', 'Temperature', 12.5, 'On', 1),
+('HumSensor1', 'Humidity', 65.0, 'On', 1);
 
 INSERT INTO Releve (DateReleve, HeureReleve, UniteReleve, ValeurReleve, idCapteur) VALUES
 ('2025-05-01', '12:00:00', 'Celsius', 12.5, 1),
