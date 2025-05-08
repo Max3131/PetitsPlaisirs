@@ -310,8 +310,8 @@ function afficherInventaire($connexion, $idCave) {
 
     if ($resultat && mysqli_num_rows($resultat) > 0) {
         // Affiche l'inventaire dans un tableau
-        echo '<div class="container py-5">';
-        echo '<h2 class="mb-4 text-center">Inventaire de la Cave</h2>';
+        echo '<div class="container ">';
+        echo '<h1 class="mb-4 text-center">Inventaire de la Cave</h2>';
 
         echo '<div class="table-responsive">';
         echo '<table class="table table-bordered table-striped align-middle text-center">';
