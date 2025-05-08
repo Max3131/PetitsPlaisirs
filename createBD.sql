@@ -2,6 +2,7 @@ DROP TABLE Client;
 DROP TABLE Admin;
 DROP TABLE TypeCave;
 DROP TABLE Cave;
+DROP TABLE Notification;
 DROP TABLE Capteur;
 DROP TABLE Releve;
 DROP TABLE ChoixUtilisateur;
@@ -46,6 +47,15 @@ CREATE TABLE Cave (
     idClient INT,
     CONSTRAINT fk_Cave_Client FOREIGN KEY(idClient) REFERENCES Client(idClient),
     CONSTRAINT fk_Cave_TypeCave FOREIGN KEY(TypeCave) REFERENCES TypeCave(idTypeCave)
+);
+
+CREATE TABLE Notification (
+    idNotification INT AUTO_INCREMENT PRIMARY KEY,
+    DateNotification DATE,
+    HeureNotification TIME,
+    MessageNotification VARCHAR(255),
+    idCave INT,
+    CONSTRAINT fk_Notification_Cave FOREIGN KEY(idCave) REFERENCES Cave(idCave) ON DELETE CASCADE
 );
 
 CREATE TABLE Capteur (
@@ -129,6 +139,11 @@ INSERT INTO Cave (NomCave, VolumeCave, AdresseCave, VilleCave, CodePostalCave, T
 ('Cave de Sancerre', 400, '6 Rue des Terroirs', 'Sancerre', '18300', 'Vin', 3),
 ('Cave de Roquefort', 1200, '3 Avenue des Fromages', 'Roquefort', '12250', 'Fromage', 2),
 ('Cave de La Havane', 600, '4 Chemin des Cigares', 'Havane', '10100', 'Cigare', 3);
+
+INSERT INTO Notification (DateNotification, HeureNotification, MessageNotification, idCave) VALUES
+('2025-05-01', '10:00:00', 'Temperature too high!', 1),
+('2025-05-02', '11:00:00', 'Humidity too low!', 2),
+('2025-05-03', '12:00:00', 'Light level normal.', 3);
 
 INSERT INTO Capteur (NomCapteur, TypeCapteur, ValeurCapteur, StatusCapteur, idCave) VALUES
 ('TempSensor1', 'Temperature', 12.5, 'On', 1),
