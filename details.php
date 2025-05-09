@@ -241,7 +241,7 @@ require('fonctions.php');
   ?>
   
 
-    <div class="text-center mt-4">
+    <div class="text-center mt-3 mb-4">
       <!-- <a href="#" class="btn btn-primary">➕ Ajouter un produit</a> -->
       <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#ajoutProduitModal">
       Ajouter un produit
