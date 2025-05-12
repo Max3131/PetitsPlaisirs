@@ -23,14 +23,10 @@ require('fonctions.php');
   $opti= getOpti($connexion, $id);
   $volume = getVolume($connexion, $id);
 
-<<<<<<< HEAD
 modifierQuantite($connexion);
 supprimerNotification($connexion);
 modifierStatusCapteur($connexion);
 ?>
-=======
-  ?>
->>>>>>> 125dd17ffb1ab23aaefc6dd4de8fb0b6edd81b0f
 
 <!doctype html>
 <html>
@@ -105,38 +101,13 @@ modifierStatusCapteur($connexion);
           // Affichage des capteurs
           afficherCapteurs($connexion, $id);
           ?>
-            <!--
-            <div class="col-4">
-            <div class="row">
-              <div class="col d-flex justify-content-center align-items-center">
-<<<<<<< HEAD
-              <div class="card w-100">
-                <h5 class="card-header">Caractéristiques de la cave</h5>
-                <div class="card-body">
-                <h5 class="card-title">Volume</h5>
-                <p class="card-text">40 m3</p>
-                </div>
-                <div class="card-body">
-                <h5 class="card-title">Volume</h5>
-                <p class="card-text">40 m3</p>
-=======
-                <div class="card w-100">
-                  <h5 class="card-header">Caractéristiques de la cave</h5>
-                  <div class="card-body">
-                  <h5 class="card-title">Volume</h5>
-                  <p class="card-text"><?php echo $volume ?> m3</p>
-                  </div>
->>>>>>> 125dd17ffb1ab23aaefc6dd4de8fb0b6edd81b0f
-                </div>
-              </div>
-              </div>
-            </div>
-            </div>
-            -->
+            
         </div>
       </section>
     </div>
   </main>
+
+
 
   <?php afficherInventaire($connexion, $id); ?>
 
