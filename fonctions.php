@@ -510,7 +510,7 @@ function supprimerNotification($connexion) {
         }
     }
 }
-?>
+
 
 function getLuminosite($connexion, $idCave) {
     //requête SQL
