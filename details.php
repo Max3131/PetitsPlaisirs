@@ -18,6 +18,7 @@ if (!$connexion) {
 
 modifierQuantite($connexion);
 supprimerNotification($connexion);
+modifierStatusCapteur($connexion);
 ?>
 
 <!doctype html>
@@ -87,49 +88,30 @@ supprimerNotification($connexion);
             // Affichage des notifications
             afficherNotifications($connexion, $id);
             ?>
-            <!--
-            <div class="row mt-5">
-              <div class="col d-flex justify-content-center align-items-center">
-              <div class="card w-100" style="max-height: 400px; overflow-y: auto;">
-                <h5 class="card-header">Vos capteurs</h5>
-                <div class="card-body">
-                <ul class="list-group">
-                  <li class="list-group-item d-flex justify-content-between align-items-center">
-                  <div>Supprimer une bouteille de la cave !</div>
-                  <div>
-                  <span class="text me-2">Ajouter</span>
-                  <span class="text me-2">Ajouter</span>
-                    <button type="button" class="btn btn-sm btn-danger">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash-fill" viewBox="0 0 16 16">
-                      <path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5M8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5m3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0"/>
-                    </svg>
-                    </button>
-                  </div>
-                  </li>
-                </ul>
-                </div>
-              </div>
-              </div>
-            </div>
-            -->
           </div>
-          <div class="col-4">
+          <?php
+          // Affichage des capteurs
+          afficherCapteurs($connexion, $id);
+          ?>
+            <!--
+            <div class="col-4">
             <div class="row">
               <div class="col d-flex justify-content-center align-items-center">
-                <div class="card w-100">
-                  <h5 class="card-header">Caractéristiques de la cave</h5>
-                  <div class="card-body">
-                    <h5 class="card-title">Volume</h5>
-                    <p class="card-text">40 m3</p>
-                  </div>
-                  <div class="card-body">
-                    <h5 class="card-title">Volume</h5>
-                    <p class="card-text">40 m3</p>
-                  </div>
+              <div class="card w-100">
+                <h5 class="card-header">Caractéristiques de la cave</h5>
+                <div class="card-body">
+                <h5 class="card-title">Volume</h5>
+                <p class="card-text">40 m3</p>
+                </div>
+                <div class="card-body">
+                <h5 class="card-title">Volume</h5>
+                <p class="card-text">40 m3</p>
                 </div>
               </div>
+              </div>
             </div>
-          </div>
+            </div>
+            -->
         </div>
       </section>
     </div>
@@ -262,6 +244,22 @@ supprimerNotification($connexion);
           }
         });
       }
+    }
+
+    function modifierStatusCapteur(idCapteur, status) {
+      fetch('', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: `ajax_action=modifier_status_capteur&idCapteur=${idCapteur}&status=${status}`
+      })
+      .then(response => response.json())
+      .then(data => {
+        if (data.success) {
+          window.location.reload();
+        } else {
+          alert("Erreur : " + data.message);
+        }
+      });
     }
   </script>
 </body>
