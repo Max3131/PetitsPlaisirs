@@ -31,6 +31,7 @@ require('fonctions.php');
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
   <title>Accueil</title>
 </head>
 
@@ -64,8 +65,8 @@ require('fonctions.php');
                                     <!--img src="..." class="card-img-top" alt="..."!-->
                                     <div class="card-body">
                                       <h5 class="card-title">Luminosité</h5>
-                                      <h1 class="card-text"><?php echo $lux ?> Lux</h1>
-                                      <p class="card-text">Recommandé : <?php echo $opti['LumOptiC'] ?> Lux</p>
+                                      <h1 class="card-text"><span id="valLum"><?php echo $lux ?></span> Lux</h1>
+                                      <p class="card-text">Recommandé : <p id="valLumOptiC"><?php echo $opti['LumOptiC'] ?></p> Lux</p>
                                       <!--a href="#" class="btn btn-primary">Go somewhere</a!-->
                                     </div>
                                 </div>
@@ -75,8 +76,8 @@ require('fonctions.php');
                                     <!--img src="..." class="card-img-top" alt="..."!-->
                                     <div class="card-body">
                                       <h5 class="card-title">Température</h5>
-                                      <h1 class="card-text"><?php echo $temperature?> °C</h1>
-                                      <p class="card-text">Recommandé : <?php echo $opti['TempOptiC'] ?> °C</p>
+                                      <h1 class="card-text"><span id="valTemp"><?php echo $temperature?></span> °C</h1>
+                                      <p class="card-text">Recommandé : <p id="valTempOptiC"><?php echo $opti['TempOptiC'] ?></p> °C</p>
                                       <!--a href="#" class="btn btn-primary">Go somewhere</a!-->
                                     </div>
                                 </div>
@@ -86,8 +87,8 @@ require('fonctions.php');
                                     <!--img src="..." class="card-img-top" alt="..."!-->
                                     <div class="card-body">
                                       <h5 class="card-title">Humidité</h5>
-                                      <h1 class="card-text"><?php echo $humid?> %</h1>
-                                      <p class="card-text">Recommandé : <?php echo $opti['HumOptiC'] ?> %</p>
+                                      <h1 class="card-text"><span id="valHumidite"><?php echo $humid?></span> %</h1>
+                                      <p class="card-text">Recommandé : <span id="valHumOptiC"><?php echo $opti['HumOptiC']; ?></span> %</p>
                                       <!--a href="#" class="btn btn-primary">Go somewhere</a!-->
                                     </div>
                                 </div>
