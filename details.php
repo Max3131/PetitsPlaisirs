@@ -2,23 +2,28 @@
 require('connect.php');
 require('fonctions.php');
 
-session_start();
-if (!isset($_SESSION['email'])) {
-  header('Location: index.html');
-  exit();
-}
+  session_start();
+  if (!isset($_SESSION['email'])) {
+    header('Location: index.html');
+    exit();
+  }
+  $id = $_GET['id'];
+  $connexion = mysqli_connect("p:".SERVEUR, NOM, PASSE, BD);
+  if (!$connexion) {
+    $_SESSION['message'] = "Problème : Connexion au serveur ou à la base de données impossible.";
+    header("Location: connexion.php");
+    exit();
+  }
+  modifierQuantite($connexion); 
+  supprimerNotification($connexion);
 
-$id = $_GET['id'];
-$connexion = mysqli_connect("p:".SERVEUR, NOM, PASSE, BD);
-if (!$connexion) {
-  $_SESSION['message'] = "Problème : Connexion au serveur ou à la base de données impossible.";
-  header("Location: connexion.php");
-  exit();
-}
+  $lux= getLuminosite($connexion, $id);
+  $temperature = getTemperature($connexion, $id);
+  $humid = getHumidite($connexion, $id);
+  $opti= getOpti($connexion, $id);
+  $volume = getVolume($connexion, $id);
 
-modifierQuantite($connexion);
-supprimerNotification($connexion);
-?>
+  ?>
 
 <!doctype html>
 <html>
@@ -29,6 +34,7 @@ supprimerNotification($connexion);
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
   <title>Accueil</title>
 </head>
 
@@ -58,27 +64,27 @@ supprimerNotification($connexion);
               <div class="col-4 d-flex justify-content-center">
                 <div class="card w-100">
                   <div class="card-body">
-                    <h5 class="card-title">Luminosité</h5>
-                    <h1 class="card-text">26 Lux</h1>
-                    <p class="card-text">Recommandé : 26 Lux</p>
+                  <h5 class="card-title">Luminosité</h5>
+                  <h1 class="card-text"><span id="valLum"><?php echo $lux ?></span> Lux</h1>
+                  <p class="card-text">Recommandé : <p id="valLumOptiC"><?php echo $opti['LumOptiC'] ?></p> Lux</p>
                   </div>
                 </div>
               </div>
               <div class="col-4 d-flex justify-content-center">
                 <div class="card w-100">
                   <div class="card-body">
-                    <h5 class="card-title">Luminosité</h5>
-                    <h1 class="card-text">26 Lux</h1>
-                    <p class="card-text">Recommandé : 26 Lux</p>
+                  <h5 class="card-title">Température</h5>
+                  <h1 class="card-text"><span id="valTemp"><?php echo $temperature?></span> °C</h1>
+                  <p class="card-text">Recommandé : <p id="valTempOptiC"><?php echo $opti['TempOptiC'] ?></p> °C</p>
                   </div>
                 </div>
               </div>
               <div class="col-4 d-flex justify-content-center">
                 <div class="card w-100">
                   <div class="card-body">
-                    <h5 class="card-title">Luminosité</h5>
-                    <h1 class="card-text">26 Lux</h1>
-                    <p class="card-text">Recommandé : 26 Lux</p>
+                  <h5 class="card-title">Humidité</h5>
+                  <h1 class="card-text"><span id="valHumidite"><?php echo $humid?></span> %</h1>
+                  <p class="card-text">Recommandé : <span id="valHumOptiC"><?php echo $opti['HumOptiC']; ?></span> %</p>
                   </div>
                 </div>
               </div>
@@ -119,12 +125,8 @@ supprimerNotification($connexion);
                 <div class="card w-100">
                   <h5 class="card-header">Caractéristiques de la cave</h5>
                   <div class="card-body">
-                    <h5 class="card-title">Volume</h5>
-                    <p class="card-text">40 m3</p>
-                  </div>
-                  <div class="card-body">
-                    <h5 class="card-title">Volume</h5>
-                    <p class="card-text">40 m3</p>
+                  <h5 class="card-title">Volume</h5>
+                  <p class="card-text"><?php echo $volume ?> m3</p>
                   </div>
                 </div>
               </div>

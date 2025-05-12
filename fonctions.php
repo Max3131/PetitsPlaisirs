@@ -512,3 +512,98 @@ function supprimerNotification($connexion) {
 }
 ?>
 
+function getLuminosite($connexion, $idCave) {
+    //requête SQL
+    $query = "
+        SELECT R.ValeurReleve 
+        FROM releve R 
+        JOIN capteur C ON C.idCapteur = R.idCapteur 
+        WHERE C.idCave = $idCave 
+          AND C.TypeCapteur = 'Luminosite'
+    ";
+$resultat = mysqli_query($connexion, $query);
+
+    if ($resultat && mysqli_num_rows($resultat) > 0) {
+        $row = mysqli_fetch_assoc($resultat); 
+        return $row['ValeurReleve'];
+    } else {
+        return null;
+    }
+}
+function getTemperature($connexion, $idCave) {
+    //requête SQL
+    $query = "
+        SELECT R.ValeurReleve 
+        FROM releve R 
+        JOIN capteur C ON C.idCapteur = R.idCapteur 
+        WHERE C.idCave = $idCave 
+          AND C.TypeCapteur = 'Temperature' 
+    ";
+    $resultat = mysqli_query($connexion, $query);
+
+    if ($resultat && mysqli_num_rows($resultat) > 0) {
+        $row = mysqli_fetch_assoc($resultat); 
+        return $row['ValeurReleve'];
+    } else {
+        echo "<p>Aucun capteur temp trouvé.</p>";
+        return null;
+    }
+}
+function getHumidite($connexion, $idCave) {
+    //requête SQL
+    $query = "
+        SELECT R.ValeurReleve 
+        FROM releve R 
+        JOIN capteur C ON C.idCapteur = R.idCapteur 
+        WHERE C.idCave = $idCave 
+          AND C.TypeCapteur = 'Humidity' 
+    ";
+    $resultat = mysqli_query($connexion, $query);
+
+    if ($resultat && mysqli_num_rows($resultat) > 0) {
+        $row = mysqli_fetch_assoc($resultat); 
+        return $row['ValeurReleve'];
+    } else {
+        echo "<p>Aucun capteur humidite trouvé.</p>";
+        return null;
+    }
+}
+function getOpti($connexion, $idCave) {
+    //requête SQL
+    $query = "
+        SELECT TC.TempOptiC, TC.LumOptiC, TC.HumOptiC 
+        FROM cave Ca
+        JOIN typecave TC ON Ca.typecave = TC.idtypecave
+        JOIN capteur C ON C.idCave = Ca.idCave
+        JOIN client CL ON CL.idClient = Ca.idClient
+        WHERE CL.EmailCli = '".$_SESSION['email']."' 
+          AND C.idCave = $idCave        
+    ";
+    $resultat = mysqli_query($connexion, $query);
+
+    if ($resultat && mysqli_num_rows($resultat) > 0) {
+       return mysqli_fetch_assoc($resultat);
+    } else {
+        echo "<p>Aucun opti trouvé.</p>";
+        return null;    
+    }
+}
+function getVolume($connexion, $idCave) {
+    //requête SQL
+    $query = "
+        SELECT Ca.VolumeCave
+        FROM cave Ca JOIN client CL ON CL.idClient = Ca.idClient
+        WHERE CL.EmailCli = '".$_SESSION['email']."' 
+          AND Ca.idCave = $idCave       
+    ";
+    $resultat = mysqli_query($connexion, $query);
+
+    if ($resultat && mysqli_num_rows($resultat) > 0) {
+       $row=  mysqli_fetch_assoc($resultat);
+       return $row['VolumeCave'];
+    } else {
+        echo "<p>Aucun volume trouvé.</p>";
+        return null;    
+    }
+}
+?>
