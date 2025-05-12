@@ -307,25 +307,25 @@ function afficherInventaire($connexion, $idCave) {
     // Prépare la requête pour récupérer l'inventaire de la cave
     $query = "SELECT * FROM Produit WHERE idCave = '$idCave'";
     $resultat = mysqli_query($connexion, $query);
+    // Affiche l'inventaire dans un tableau
+    echo '<div class="container ">';
+    echo '<h1 class="mb-4 text-center">Inventaire de la Cave</h2>';
+
+    echo '<div class="table-responsive">';
+    echo '<table class="table table-bordered table-striped align-middle text-center">';
+    echo '<thead class="table-dark">';
+    echo '<tr>';
+    echo '<th>ID</th>';
+    echo '<th>Nom</th>';
+    echo '<th>Type</th>';
+    echo '<th>Annee</th>';
+    echo '<th>Quantité</th>';
+    echo '<th>Actions</th>';
+    echo '</tr>';
+    echo '</thead>';
+    echo '<tbody>';
 
     if ($resultat && mysqli_num_rows($resultat) > 0) {
-        // Affiche l'inventaire dans un tableau
-        echo '<div class="container ">';
-        echo '<h1 class="mb-4 text-center">Inventaire de la Cave</h2>';
-
-        echo '<div class="table-responsive">';
-        echo '<table class="table table-bordered table-striped align-middle text-center">';
-        echo '<thead class="table-dark">';
-        echo '<tr>';
-        echo '<th>ID</th>';
-        echo '<th>Nom</th>';
-        echo '<th>Type</th>';
-        echo '<th>Annee</th>';
-        echo '<th>Quantité</th>';
-        echo '<th>Actions</th>';
-        echo '</tr>';
-        echo '</thead>';
-        echo '<tbody>';
         while ($row = mysqli_fetch_assoc($resultat)) {
             echo '<tr>';
             echo '<td>' . $row['idProduit'] . '</td>';
@@ -343,14 +343,15 @@ function afficherInventaire($connexion, $idCave) {
             echo '</td>';
             echo '</tr>';
         }
-        echo '</tbody>';
-        echo '</table>';
-        echo '</div>';
+        
     }
     else {
         // Si aucun vin n'est trouvé, affiche un message
         echo "<p>Aucun vin trouvé dans cette cave.</p>";
     }
+    echo '</tbody>';
+    echo '</table>';
+    echo '</div>';
 }
 
 //////////////////////////////////////////////////////////////////////////////////////////
@@ -448,6 +449,65 @@ function afficherCapteurs($connexion, $idCave) {
     } else {
         // Si aucun capteur n'est trouvé, affiche un message
         echo "<p>Aucun capteur trouvé.</p>";
+    }
+}
+
+
+/////////////////////////////////////////////////////////////////////////////////////////////
+//Fonction pour afficher les notification d'une cave
+
+function afficherNotifications($connexion, $idCave) {
+    // Prépare la requête pour récupérer les notifications de la cave
+    $query = "SELECT * FROM Notification WHERE idCave = '$idCave'";
+    $resultat = mysqli_query($connexion, $query);
+    echo '<div class="row mt-5">';
+    echo '<div class="col d-flex justify-content-center align-items-center">';
+    echo '<div class="card w-100" style="max-height: 400px; overflow-y: auto;">';
+    echo '<h5 class="card-header">Centre de Notification</h5>';
+    echo '<div class="card-body">';
+    echo '<ul class="list-group">';
+
+    if ($resultat && mysqli_num_rows($resultat) > 0) {
+        // Affiche les notifications dans un tableau
+        
+        while ($row = mysqli_fetch_assoc($resultat)) {
+        echo '<li class="list-group-item d-flex justify-content-between align-items-center">';
+        echo '<div>' . $row['MessageNotification'] . '</div>';
+        echo '<div>';
+        echo '<span class="text me-4">' . $row['HeureNotification'] . '</span>';
+        echo '<span class="text me-3">' . $row['DateNotification'] . '</span>';
+        echo '<button type="button" class="btn btn-sm btn-danger" onclick="supprimerNotification(' . $row['idNotification'] . ')" >';
+        echo '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash-fill" viewBox="0 0 16 16">';
+        echo '<path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5M8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5m3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0"/>';
+        echo '</svg>';
+        echo '</button>';
+        echo '</div>';
+        echo '</li>';
+    }
+    }else {
+        // Si aucune notification n'est trouvée
+        echo "<p>Aucune notification trouvée.</p>";
+    }
+    echo '</ul>';
+    echo '</div>';
+    echo '</div>';
+    echo '</div>';
+    echo '</div>';
+
+}
+
+function supprimerNotification($connexion) {
+    if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['ajax_action'])) {
+        if ($_POST['ajax_action'] === 'supprimer_notification') {
+            $idNotification = intval($_POST['idNotification']);
+            $query = "DELETE FROM Notification WHERE idNotification = $idNotification";
+            if (mysqli_query($connexion, $query)) {
+                echo json_encode(['success' => true]);
+            } else {
+                echo json_encode(['success' => false, 'message' => mysqli_error($connexion)]);
+            }
+            exit();
+        }
     }
 }
 ?>

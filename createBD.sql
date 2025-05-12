@@ -142,6 +142,7 @@ INSERT INTO Cave (NomCave, VolumeCave, AdresseCave, VilleCave, CodePostalCave, T
 
 INSERT INTO Notification (DateNotification, HeureNotification, MessageNotification, idCave) VALUES
 ('2025-05-01', '10:00:00', 'Temperature too high!', 1),
+('2025-05-01', '10:00:00', 'Temperature too high!', 1),
 ('2025-05-02', '11:00:00', 'Humidity too low!', 2),
 ('2025-05-03', '12:00:00', 'Light level normal.', 3);
 
