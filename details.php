@@ -19,6 +19,7 @@ require('fonctions.php');
   $temperature = getTemperature($connexion, $id);
   $humid = getHumidite($connexion, $id);
   $opti= getOpti($connexion, $id);
+  $volume = getVolume($connexion, $id);
   ?>
 
 <!doctype html>
@@ -226,12 +227,12 @@ require('fonctions.php');
                                     <h5 class="card-header">Caractéristiques de la cave</h5>
                                     <div class="card-body">
                                         <h5 class="card-title">Volume</h5>
-                                        <p class="card-text">40 m3</p>
+                                        <p class="card-text"><?php echo $volume ?> m3</p>
                                     </div>
-                                    <div class="card-body">
+                                    <!--<div class="card-body">
                                         <h5 class="card-title">Volume</h5>
                                         <p class="card-text">40 m3</p>
-                                    </div>
+                                    </div>-->
                                 </div>
                             </div>
                         </div>   

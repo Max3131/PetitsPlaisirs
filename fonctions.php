@@ -527,4 +527,22 @@ function getOpti($connexion, $idCave) {
         return null;    
     }
 }
+function getVolume($connexion, $idCave) {
+    //requête SQL
+    $query = "
+        SELECT Ca.VolumeCave
+        FROM cave Ca JOIN client CL ON CL.idClient = Ca.idClient
+        WHERE CL.EmailCli = '".$_SESSION['email']."' 
+          AND Ca.idCave = $idCave       
+    ";
+    $resultat = mysqli_query($connexion, $query);
+
+    if ($resultat && mysqli_num_rows($resultat) > 0) {
+       $row=  mysqli_fetch_assoc($resultat);
+       return $row['VolumeCave'];
+    } else {
+        echo "<p>Aucun volume trouvé.</p>";
+        return null;    
+    }
+}
 ?>
