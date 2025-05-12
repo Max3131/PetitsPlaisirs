@@ -13,7 +13,13 @@ require('fonctions.php');
     header("Location: connexion.php");
     exit();
   }
-  modifierQuantite($connexion); ?>
+  modifierQuantite($connexion); 
+  
+  $lux= getLuminosite($connexion, $id);
+  $temperature = getTemperature($connexion, $id);
+  $humid = getHumidite($connexion, $id);
+  $opti= getOpti($connexion, $id);
+  ?>
 
 <!doctype html>
 <html>
@@ -57,8 +63,8 @@ require('fonctions.php');
                                     <!--img src="..." class="card-img-top" alt="..."!-->
                                     <div class="card-body">
                                       <h5 class="card-title">Luminosité</h5>
-                                      <h1 class="card-text">26 Lux</h1>
-                                      <p class="card-text">Recommandé : 26 Lux</p>
+                                      <h1 class="card-text"><?php echo $lux ?> Lux</h1>
+                                      <p class="card-text">Recommandé : <?php echo $opti['LumOptiC'] ?> Lux</p>
                                       <!--a href="#" class="btn btn-primary">Go somewhere</a!-->
                                     </div>
                                 </div>
@@ -67,9 +73,9 @@ require('fonctions.php');
                                 <div class="card w-100">
                                     <!--img src="..." class="card-img-top" alt="..."!-->
                                     <div class="card-body">
-                                      <h5 class="card-title">Luminosité</h5>
-                                      <h1 class="card-text">26 Lux</h1>
-                                      <p class="card-text">Recommandé : 26 Lux</p>
+                                      <h5 class="card-title">Température</h5>
+                                      <h1 class="card-text"><?php echo $temperature?> °C</h1>
+                                      <p class="card-text">Recommandé : <?php echo $opti['TempOptiC'] ?> °C</p>
                                       <!--a href="#" class="btn btn-primary">Go somewhere</a!-->
                                     </div>
                                 </div>
@@ -78,9 +84,9 @@ require('fonctions.php');
                                 <div class="card w-100">
                                     <!--img src="..." class="card-img-top" alt="..."!-->
                                     <div class="card-body">
-                                      <h5 class="card-title">Luminosité</h5>
-                                      <h1 class="card-text">26 Lux</h1>
-                                      <p class="card-text">Recommandé : 26 Lux</p>
+                                      <h5 class="card-title">Humidité</h5>
+                                      <h1 class="card-text"><?php echo $humid?> %</h1>
+                                      <p class="card-text">Recommandé : <?php echo $opti['HumOptiC'] ?> %</p>
                                       <!--a href="#" class="btn btn-primary">Go somewhere</a!-->
                                     </div>
                                 </div>

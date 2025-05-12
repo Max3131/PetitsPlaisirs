@@ -147,11 +147,17 @@ INSERT INTO Notification (DateNotification, HeureNotification, MessageNotificati
 
 INSERT INTO Capteur (NomCapteur, TypeCapteur, ValeurCapteur, StatusCapteur, idCave) VALUES
 ('TempSensor1', 'Temperature', 12.5, 'On', 1),
-('HumSensor1', 'Humidity', 65.0, 'On', 1);
+('HumSensor1', 'Humidity', 65.0, 'On', 1),
+('LuxSensor1', 'Luminosite', 1888.0, 'On', 1),
+('LuxSensor2', 'Luminosite', 1888.0, 'On', 2),
+('LuxSensor3', 'Luminosite', 1888.0, 'On', 3);
 
 INSERT INTO Releve (DateReleve, HeureReleve, UniteReleve, ValeurReleve, idCapteur) VALUES
 ('2025-05-01', '12:00:00', 'Celsius', 12.5, 1),
-('2025-05-01', '12:30:00', 'Percent', 65.0, 2);
+('2025-05-01', '12:30:00', 'Percent', 65.0, 2),
+('2025-05-01', '12:30:00', 'Lux', 1888.0, 3),
+('2025-05-01', '12:30:00', 'Lux', 1888.0, 4),
+('2025-05-01', '12:30:00', 'Lux', 1888.0, 5);
 
 INSERT INTO ChoixUtilisateur (DateChoix, HeureChoix, UniteChoix, ValeurChoix, idCapteur) VALUES
 ('2025-05-02', '14:00:00', 'Celsius', 13.0, 1),
