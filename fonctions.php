@@ -598,9 +598,9 @@ function getOpti($connexion, $idCave) {
     $query = "
         SELECT TC.TempOptiC, TC.LumOptiC, TC.HumOptiC 
         FROM cave Ca
-        JOIN typecave TC ON Ca.typecave = TC.idtypecave
-        JOIN capteur C ON C.idCave = Ca.idCave
-        JOIN client CL ON CL.idClient = Ca.idClient
+        JOIN TypeCave TC ON Ca.TypeCave = TC.idTypeCave
+        JOIN Capteur C ON C.idCave = Ca.idCave
+        JOIN Client CL ON CL.idClient = Ca.idClient
         WHERE CL.EmailCli = '".$_SESSION['email']."' 
           AND C.idCave = $idCave        
     ";
