@@ -559,7 +559,9 @@ function getTemperature($connexion, $idCave) {
         FROM releve R 
         JOIN capteur C ON C.idCapteur = R.idCapteur 
         WHERE C.idCave = $idCave 
-          AND C.TypeCapteur = 'Temperature' 
+          AND C.TypeCapteur = 'Temperature'
+          ORDER BY R.dateReleve DESC
+    LIMIT 1
     ";
     $resultat = mysqli_query($connexion, $query);
 
@@ -569,6 +571,7 @@ function getTemperature($connexion, $idCave) {
     } else {
         echo "<p>Aucun capteur temp trouvé.</p>";
         return null;
+        
     }
 }
 function getHumidite($connexion, $idCave) {
