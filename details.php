@@ -66,7 +66,7 @@ require('fonctions.php');
                   <div class="card-body">
                   <h5 class="card-title">Luminosité</h5>
                   <h1 class="card-text"><span id="valLum"><?php echo $lux ?></span> Lux</h1>
-                  <p class="card-text">Recommandé : <p id="valLumOptiC"><?php echo $opti['LumOptiC'] ?></p> Lux</p>
+                  <p class="card-text">Recommandé : <span id="valLumOptiC"><?php echo $opti['LumOptiC'] ?></span> Lux</p>
                   </div>
                 </div>
               </div>
@@ -75,7 +75,7 @@ require('fonctions.php');
                   <div class="card-body">
                   <h5 class="card-title">Température</h5>
                   <h1 class="card-text"><span id="valTemp"><?php echo $temperature?></span> °C</h1>
-                  <p class="card-text">Recommandé : <p id="valTempOptiC"><?php echo $opti['TempOptiC'] ?></p> °C</p>
+                  <p class="card-text">Recommandé : <span id="valTempOptiC"><?php echo $opti['TempOptiC'] ?></span> °C</p>
                   </div>
                 </div>
               </div>
