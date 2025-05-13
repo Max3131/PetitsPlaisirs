@@ -151,13 +151,12 @@ INSERT INTO Capteur (NomCapteur, TypeCapteur, ValeurCapteur, StatusCapteur, idCa
 ('TempSensor2', 'Temperature', 13.0, 'On', 1),
 ('TempSensor1', 'Prise', 12.5, 'On', 1),
 ('TempSensor2', 'Prise', 13.0, 'On', 1),
-('LightSensor1', 'Light', 300.0, 'On', 1),
-('LightSensor2', 'Light', 350.0, 'On', 1),
-('HumSensor1', 'Humidity', 60.0, 'On', 1),
-('HumSensor2', 'Humidity', 65.0, 'On', 1),
+('LightSensor1', 'Lumiere', 300.0, 'On', 1),
+('LightSensor2', 'Lumiere', 350.0, 'On', 1),
+('HumSensor1', 'Humidite', 60.0, 'On', 1),
+('HumSensor2', 'Humidite', 65.0, 'On', 1),
 ('TempSensor3', 'Temperature', 14.0, 'On', 2),
-('LightSensor3', 'Light', 400.0, 'On', 2),
-('HumSensor1', 'Humidity', 65.0, 'On', 1);
+('LightSensor3', 'Lumiere', 400.0, 'On', 2),
 
 INSERT INTO Releve (DateReleve, HeureReleve, UniteReleve, ValeurReleve, idCapteur) VALUES
 ('2025-05-01', '12:00:00', 'Celsius', 12.5, 1),

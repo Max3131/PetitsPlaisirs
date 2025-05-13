@@ -532,5 +532,54 @@ function supprimerNotification($connexion) {
         }
     }
 }
-?>
 
+function afficherRelevements($connexion, $idCave) {
+    // Prépare la requête pour récupérer les relevés de la cave
+    $query = "SELECT TypeCapteur, AVG(ValeurCapteur) AS MoyenneValeur FROM  Capteur WHERE idCave = $idCave AND TypeCapteur != 'Prise' GROUP BY TypeCapteur ORDER BY TypeCapteur";
+    $query2 = "SELECT TC.* FROM TypeCave TC JOIN Cave C ON C.TypeCave=TC.idTypeCave WHERE C.idCave = $idCave";
+    $resultat2 = mysqli_query($connexion, $query2);
+    $resultat = mysqli_query($connexion, $query);
+    $unite = 'null';
+    $recommandation = 'null';
+    echo '<div class="row">';
+    if ($resultat2 && mysqli_num_rows($resultat2) > 0) {
+        $row2 = mysqli_fetch_assoc($resultat2); // Récupérer les données de $resultat2
+    }
+    if ($resultat && mysqli_num_rows($resultat) > 0) {
+        // Affiche les relevés dans un tableau
+        while ($row = mysqli_fetch_assoc($resultat)) {
+            if ($row['TypeCapteur'] == 'Lumiere') {
+                $unite = 'Lux';
+                $recommandation = isset($row2['LumOptiC']) ? $row2['LumOptiC'] : 'N/A';
+            } elseif ($row['TypeCapteur'] == 'Temperature') {
+                $unite = '°C';
+                $recommandation = isset($row2['TempOptiC']) ? $row2['TempOptiC'] : 'N/A';
+            } elseif ($row['TypeCapteur'] == 'Humidite') {
+                $unite = '%';
+                $recommandation = isset($row2['HumOptiC']) ? $row2['HumOptiC'] : 'N/A';
+            }
+
+            echo '<div class="col-4 d-flex justify-content-center">';
+            echo '<div class="card w-100">';
+            echo '<div class="card-body">';
+            echo '<h5 class="card-title">' . $row['TypeCapteur'] . '</h5>';
+            echo '<h1 class="card-text">' . $row['MoyenneValeur'] . ' ' . $unite . ' </h1>';
+            echo '<p class="card-text">Recommandé : ' . $recommandation . ' ' . $unite . '</p>';
+            echo '</div>';
+            echo '</div>';
+            echo '</div>';
+        }
+    } else {
+        for ($i = 0; $i < 3; $i++) {
+            echo '<div class="col-4 d-flex justify-content-center">';
+            echo '<div class="card w-100">';
+            echo '<div class="card-body">';
+            echo '<h5 class="card-title"> Aucun Capteur trouve </h5>';
+            echo '</div>';
+            echo '</div>';
+            echo '</div>';
+        }
+    }
+    echo '</div>';
+}
+?>

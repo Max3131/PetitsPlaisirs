@@ -55,36 +55,40 @@ modifierStatusCapteur($connexion);
         </div>
         <div class="row mb-5">
           <div class="col-8">
+            <!--
             <div class="row">
               <div class="col-4 d-flex justify-content-center">
-                <div class="card w-100">
-                  <div class="card-body">
-                    <h5 class="card-title">Luminosité</h5>
-                    <h1 class="card-text">26 Lux</h1>
-                    <p class="card-text">Recommandé : 26 Lux</p>
-                  </div>
+              <div class="card w-100">
+                <div class="card-body">
+                <h5 class="card-title">Luminosité</h5>
+                <h1 class="card-text">26 Lux</h1>
+                <p class="card-text">Recommandé : 26 Lux</p>
                 </div>
               </div>
-              <div class="col-4 d-flex justify-content-center">
-                <div class="card w-100">
-                  <div class="card-body">
-                    <h5 class="card-title">Luminosité</h5>
-                    <h1 class="card-text">26 Lux</h1>
-                    <p class="card-text">Recommandé : 26 Lux</p>
-                  </div>
-                </div>
               </div>
               <div class="col-4 d-flex justify-content-center">
-                <div class="card w-100">
-                  <div class="card-body">
-                    <h5 class="card-title">Luminosité</h5>
-                    <h1 class="card-text">26 Lux</h1>
-                    <p class="card-text">Recommandé : 26 Lux</p>
-                  </div>
+              <div class="card w-100">
+                <div class="card-body">
+                <h5 class="card-title">Luminosité</h5>
+                <h1 class="card-text">26 Lux</h1>
+                <p class="card-text">Recommandé : 26 Lux</p>
                 </div>
+              </div>
+              </div>
+              <div class="col-4 d-flex justify-content-center">
+              <div class="card w-100">
+                <div class="card-body">
+                <h5 class="card-title">Luminosité</h5>
+                <h1 class="card-text">26 Lux</h1>
+                <p class="card-text">Recommandé : 26 Lux</p>
+                </div>
+              </div>
               </div>
             </div>
+            -->
             <?php
+            //Affichage des relevés
+            afficherRelevements($connexion, $id);
             // Affichage des notifications
             afficherNotifications($connexion, $id);
             ?>
@@ -93,25 +97,6 @@ modifierStatusCapteur($connexion);
           // Affichage des capteurs
           afficherCapteurs($connexion, $id);
           ?>
-            <!--
-            <div class="col-4">
-            <div class="row">
-              <div class="col d-flex justify-content-center align-items-center">
-              <div class="card w-100">
-                <h5 class="card-header">Caractéristiques de la cave</h5>
-                <div class="card-body">
-                <h5 class="card-title">Volume</h5>
-                <p class="card-text">40 m3</p>
-                </div>
-                <div class="card-body">
-                <h5 class="card-title">Volume</h5>
-                <p class="card-text">40 m3</p>
-                </div>
-              </div>
-              </div>
-            </div>
-            </div>
-            -->
         </div>
       </section>
     </div>
