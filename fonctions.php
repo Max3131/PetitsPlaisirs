@@ -5,7 +5,7 @@
 function verifieProfilU($connexion, $email, $password){
 
     // à compléter
-    $query = "select * from client where EmailCli = '".$email."' and MdpCli = '".$password."'";
+    $query = "SELECT * FROM Client WHERE EmailCli = '".$email."' AND MdpCli = '".$password."'";
 
     $resultat =  mysqli_query($connexion,$query);
 
@@ -45,7 +45,7 @@ function verifieProfilU($connexion, $email, $password){
 function verifieProfilA($connexion, $email, $password){
 
     // à compléter
-    $query = "select * from admin where EmailAdmin = '".$email."' and MdpAdmin = '".$password."'";
+    $query = "SELECT * FROM Admin WHERE EmailAdmin = '".$email."' AND MdpAdmin = '".$password."'";
 
     $resultat =  mysqli_query($connexion,$query);
 
@@ -81,7 +81,7 @@ function verifieProfilA($connexion, $email, $password){
 
 function verifieEmail($connexion, $email) {
     // Vérifie si l'email existe déjà dans la base de données
-    $query = "SELECT * FROM client WHERE EmailCli = '$email'";
+    $query = "SELECT * FROM Client WHERE EmailCli = '$email'";
     $resultat = mysqli_query($connexion, $query);
 
     if ($resultat && mysqli_num_rows($resultat) > 0) {
@@ -101,7 +101,7 @@ function creationProfil($connexion, $prenom, $nom, $date_naissance, $adresse, $v
     }
     // Prépare la requête d'insertion
 
-    $query = "INSERT INTO client (NomCli, PrenomCli, DateNaissanceCli, AdresseCli, VilleCli, CodePostalCli, EmailCli, MdpCli) 
+    $query = "INSERT INTO Client (NomCli, PrenomCli, DateNaissanceCli, AdresseCli, VilleCli, CodePostalCli, EmailCli, MdpCli) 
               VALUES ('$nom', '$prenom', '$date_naissance', '$adresse', '$ville', '$code_postal', '$email', '$password')";
 
     $resultat = mysqli_query($connexion, $query);
@@ -128,39 +128,13 @@ function creationProfil($connexion, $prenom, $nom, $date_naissance, $adresse, $v
 
 ///////////////////////////////////////////////////////////////////////////////////////
 
-//affichage les caves de l'utilisateur connecté
-/*
-function afficheCaves($connexion, $email) {
-    // Prépare la requête pour récupérer les caves de l'utilisateur
-    $query = "SELECT * FROM cave WHERE EmailCli = '$email'";
-    $resultat = mysqli_query($connexion, $query);
-
-    if ($resultat && mysqli_num_rows($resultat) > 0) {
-        // Affiche les caves dans un tableau
-        echo "<table>";
-        echo "<tr><th>ID</th><th>Nom de la Cave</th><th>Type de Vin</th><th>Capacité</th></tr>";
-        while ($row = mysqli_fetch_assoc($resultat)) {
-            echo "<tr>";
-            echo "<td>" . $row['IdCave'] . "</td>";
-            echo "<td>" . $row['NomCave'] . "</td>";
-            echo "<td>" . $row['TypeVin'] . "</td>";
-            echo "<td>" . $row['Capacite'] . "</td>";
-            echo "</tr>";
-        }
-        echo "</table>";
-    } else {
-        // Si aucune cave n'est trouvée, affiche un message
-        echo "<p>Aucune cave trouvée.</p>";
-    }
-}
-*/
 
 
 //////////////////////////////////////////////////////////////////////////////////
 //Modification de la temperature de la cave
 function modifTemp($connexion, $idCave, $temperature) {
     // Prépare la requête pour mettre à jour la température de la cave
-    $query = "UPDATE cave SET Temperature = '$temperature' WHERE IdCave = '$idCave'";
+    $query = "UPDATE Cave SET Temperature = '$temperature' WHERE IdCave = '$idCave'";
     $resultat = mysqli_query($connexion, $query);
 
     if ($resultat) {
@@ -240,7 +214,7 @@ function afficheCaves($connexion, $email) {
 
 function afficherToutesLesCaves($connexion) {
     // Prépare la requête pour récupérer toutes les caves
-    $query = "SELECT * FROM cave";
+    $query = "SELECT * FROM Cave";
     $resultat = mysqli_query($connexion, $query);
 
     if ($resultat && mysqli_num_rows($resultat) > 0) {
@@ -275,7 +249,7 @@ function afficherToutesLesCaves($connexion) {
 
 function recupererIdClient($connexion, $email, $dateN) {
     // Prépare la requête pour récupérer l'ID du client
-    $query = "SELECT idClient FROM client WHERE EmailCli = '$email' AND DateNaissanceCli = '$dateN'";
+    $query = "SELECT idClient FROM Client WHERE EmailCli = '$email' AND DateNaissanceCli = '$dateN'";
     $resultat = mysqli_query($connexion, $query);
 
     if ($resultat && mysqli_num_rows($resultat) == 1) {
@@ -288,7 +262,7 @@ function recupererIdClient($connexion, $email, $dateN) {
 
 function ajouterCave($connexion, $idClient, $nomCave, $adresse, $codePostal, $ville, $volume, $typeCave) {
     // Prépare la requête d'insertion
-    $query = "INSERT INTO cave (idClient, NomCave, AdresseCave, CodePostalCave, VilleCave, VolumeCave, TypeCave) 
+    $query = "INSERT INTO Cave (idClient, NomCave, AdresseCave, CodePostalCave, VilleCave, VolumeCave, TypeCave) 
               VALUES ('$idClient', '$nomCave', '$adresse', '$codePostal', '$ville', '$volume', '$typeCave')";
 
     $resultat = mysqli_query($connexion, $query);
