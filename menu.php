@@ -22,15 +22,15 @@ session_start();
     <header class="menu-banner">
         <nav>
             <ul>
-                <li><a href="dashboard.html">Accueil</a></li> <!-- Lien vers la page d'accueil -->
-                <li><a href="index.php">Déconnexion</a></li> <!-- Lien vers le tableau de bord -->
+                <li><a href="rediriger.php">Menu</a></li> <!-- Lien vers le menu -->
+                <li><a href="index.html">Déconnexion</a></li> <!-- Lien vers le tableau de bord -->
             </ul>
         </nav>
     </header>
 
     <!-- Conteneur principal pour le contenu du tableau de bord -->
     <div class="MenuCentrale">
-        <h1>Dashboard</h1>
+        <h1>Menu</h1>
         <h2 style="color: red;" class="welcome-message">
             Bienvenue, <?php echo isset($_SESSION['nom']) ? $_SESSION['nom'] . " " . $_SESSION['prenom'] : 'Utilisateur'; ?> !
         </h2>
@@ -39,24 +39,14 @@ session_start();
             <!-- Carte pour consulter les caves -->
             <div class="dashboard-card">
                 <h2>Mes Caves</h2>
-                <p>Consultez et gérez vos caves à vin.</p>
+                <p>Consultez et gérez vos caves.</p>
                 <button onclick="window.location.href='cavePanel.php'">Voir mes caves</button>
             </div>
-
-            <!-- Carte pour ajouter une nouvelle cave -->
             <div class="dashboard-card">
-                <h2>Ajouter une Cave</h2>
-                <p>Ajoutez une nouvelle cave à vin à votre collection.</p>
-                <button onclick="window.location.href='createCave.php'">Ajouter une cave</button>
+                <h2>Demander une Cave</h2>
+                <p>Demander une nouvelle cave.</p>
+                <button onclick="window.location.href='ajouterCave.php'">Ajouter une cave</button>
             </div>
-
-            <!-- Carte pour consulter les statistiques -->
-            <div class="dashboard-card">
-                <h2>Statistiques</h2>
-                <p>Analysez vos caves avec des statistiques détaillées.</p>
-                <button onclick="window.location.href='statistiques.php'">Voir les statistiques</button>
-            </div>
-
             <!-- Carte pour accéder aux paramètres utilisateur -->
             <div class="dashboard-card">
                 <h2>Paramètres</h2>

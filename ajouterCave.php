@@ -40,8 +40,8 @@ session_start();
     <header class="menu-banner">
         <nav>
             <ul>
-                <li><a href="index.html">Accueil</a></li> <!-- Lien vers la page d'accueil -->
-                <li><a href="dashboardAdmin.php">Dashboard</a></li> <!-- Lien vers le tableau de bord -->
+                <li><a href="rediriger.php">Menu</a></li> <!-- Lien vers le tableau de bord -->
+                <li><a href="index.html">Déconnexion</a></li> <!-- Lien vers la page d'accueil -->
             </ul>
         </nav>
     </header>
@@ -49,7 +49,7 @@ session_start();
     <!-- Conteneur principal pour le contenu du tableau de bord -->
     <div class="menu-container mt-5 mb-5">
         <div class="card p-4">
-            <h3 class="text-center mb-4">Ajouter une Cave à Vin</h3>
+            <h3 class="text-center mb-4">Ajouter une Cave</h3>
             <form method="POST" action="ajouterCave2.php">
                 <div class="mb-3">
                     <label for="email" class="form-label">E-mail (Client)</label>
@@ -80,12 +80,12 @@ session_start();
                     <input type="text" class="form-control" id="codePostal" name="CodePostal" placeholder="75000" required>
                 </div>
                 <div class="mb-3">
-                    <label for="wineType" class="form-label">Type de vin</label>
+                    <label for="wineType" class="form-label">Type de Cave</label>
                     <select class="form-select" id="wineType" name="wineType" required>
                         <option value="">Choisir...</option>
-                        <option value="rouge">Vin</option>
-                        <option value="blanc">Ciagre</option>
-                        <option value="champagne">Fromage</option>
+                        <option value="Vin">Vin</option>
+                        <option value="Cigare">Cigare</option>
+                        <option value="Fromage">Fromage</option>
                     </select>
                 </div>
                 <div class="d-grid">

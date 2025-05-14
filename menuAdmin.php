@@ -22,8 +22,8 @@ session_start();
     <header class="menu-banner">
         <nav>
             <ul>
-                <li><a href="dashboard.html">Accueil</a></li> <!-- Lien vers la page d'accueil -->
-                <li><a href="index.php">Déconnexion</a></li> <!-- Lien vers le tableau de bord -->
+                <li><a href="rediriger.php">Menu</a></li> <!-- Lien vers le menu -->
+                <li><a href="index.html">Déconnexion</a></li> <!-- Lien vers le tableau de bord -->
             </ul>
         </nav>
     </header>
@@ -39,14 +39,14 @@ session_start();
             <!-- Carte pour consulter les caves -->
             <div class="dashboard-card">
                 <h2>Consulter Caves</h2>
-                <p>Consultez et gérez les caves à vin.</p>
+                <p>Consultez et gérez les caves.</p>
                 <button onclick="window.location.href='cavePanelAdmin.php'">Voir mes caves</button>
             </div>
 
             <!-- Carte pour ajouter une nouvelle cave -->
             <div class="dashboard-card">
                 <h2>Ajouter une Cave</h2>
-                <p>Ajoutez une nouvelle cave à vin à votre collection.</p>
+                <p>Ajoutez une nouvelle cave à votre client.</p>
                 <button onclick="window.location.href='ajouterCave.php'">Ajouter une cave</button>
             </div>
 

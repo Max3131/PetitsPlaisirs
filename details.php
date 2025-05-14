@@ -17,11 +17,11 @@ require('fonctions.php');
   modifierQuantite($connexion); 
   supprimerNotification($connexion);
 
-  $lux= getLuminosite($connexion, $id);
+  /*$lux= getLuminosite($connexion, $id);
   $temperature = getTemperature($connexion, $id);
   $humid = getHumidite($connexion, $id);
   $opti= getOpti($connexion, $id);
-  $volume = getVolume($connexion, $id);
+  $volume = getVolume($connexion, $id);*/
 
 modifierQuantite($connexion);
 supprimerNotification($connexion);
@@ -46,9 +46,8 @@ modifierStatusCapteur($connexion);
   <header class="menu-banner">
     <nav>
       <ul>
-        <li><a href="index.html">Accueil</a></li>
-        <li><a href="dashboard.php">Dashboard</a></li>
-        <li><a href="logout.php">Déconnexion</a></li>
+        <li><a href="rediriger.php">Menu</a></li>
+        <li><a href="index.html">Déconnexion</a></li>
       </ul>
     </nav>
   </header>

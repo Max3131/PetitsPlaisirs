@@ -8,6 +8,14 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
+    <header class="menu-banner">
+        <nav>
+            <ul>
+                <li><a href="rediriger.php">Menu</a></li> <!-- Lien vers le menu -->
+                <li><a href="index.html">Déconnexion</a></li> <!-- Lien vers le tableau de bord -->
+            </ul>
+        </nav>
+    </header>
     <div class="MenuCentrale my-5">
         <div class="table-responsive">
             <table class="table table-bordered text-center align-middle">
