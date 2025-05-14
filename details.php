@@ -154,44 +154,93 @@ modifierStatusCapteur($connexion);
 
   <!-- Modal pour ajouter une valeur souahité -->
   <div class="modal fade" id="ajoutValeurModal" tabindex="-1" aria-labelledby="ajoutValeurLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content text-danger">
-        <div class="modal-header">
-          <h5 class="modal-title" id="ajoutValeurLabel">Selectionner une valeur</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fermer"></button>
-        </div>
-        <div class="modal-body">
-          <form id="formAjoutValeur">
-            <div class="mb-3">
-              <label for="Valeur" class="form-label">Valeur souhaité</label>
-              <input type="number" class="form-control" id="Valeur" required>
-            </div>
+  <div class="modal-dialog">
+    <div class="modal-content text-danger">
+      <div class="modal-header">
+        <h5 class="modal-title" id="ajoutValeurLabel">Sélectionner une valeur</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fermer"></button>
+      </div>
 
-            <!--
-            <div class="mb-3">
-              <label for="typeProduit" class="form-label">Type</label>
-              <input type="text" class="form-control" id="typeProduit" required>
-            </div>
-            <div class="mb-3">
-              <label for="anneeProduit" class="form-label">Année</label>
-              <input type="number" class="form-control" id="anneeProduit" required>
-            </div>
-            <div class="mb-3">
-              <label for="quantiteProduit" class="form-label">Quantité</label>
-              <input type="number" class="form-control" id="quantiteProduit" required>
-            </div>
-            </form>
+      <div class="modal-body">
+        <form id="formAjoutValeur" method="POST">
+          <!-- Champ caché pour l’ID du capteur -->
+          <input type="hidden" id="idCapteurInput" name="idCapteur">
+
+          <div class="mb-3">
+            <label for="Valeur" class="form-label">Valeur souhaitée</label>
+            <input type="number" class="form-control" id="Valeur" name="valeur" required>
           </div>
-            -->
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
-          <button type="button" class="btn btn-success" onclick="ajouterProduit(<?php echo $id; ?>)">Ajouter</button>
-        </div>
+
+          <p>L'ID est : <span id="id-affiche"></span></p>
+        </form>
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+        <button type="submit" form="formAjoutValeur" class="btn btn-success">Ajouter</button>
       </div>
     </div>
   </div>
+</div>
 
-  <script>
+<script>
+
+  // Fonction pour envoyer la valeur choisie par l'utilisateur
+  // et mettre à jour la base de données
+  function envoyerValeurChoisie() {
+    // Récupère le formulaire d'ajout de valeur
+    const form = document.getElementById('formAjoutValeur');
+
+    // Ajoute un écouteur d'événement pour intercepter la soumission du formulaire
+    form.addEventListener('submit', function (e) {
+      e.preventDefault(); // Empêche la soumission classique du formulaire
+
+      // Récupère les données du formulaire
+      const formData = new FormData(form);
+
+      // Envoie les données au serveur via une requête POST
+      fetch('traitementChoixUtilisateur.php', {
+        method: 'POST',
+        body: formData
+      })
+        .then(response => response.text()) // Traite la réponse en tant que texte
+        .then(result => {
+          console.log('Succès :', result); // Affiche le résultat dans la console
+
+          // Ferme la modale Bootstrap après la mise à jour
+          const modalElement = document.getElementById('ajoutValeurModal');
+          const modalInstance = bootstrap.Modal.getInstance(modalElement);
+          modalInstance.hide();
+
+          // Rafraîchit la page pour refléter les changements
+          window.location.reload();
+        })
+        .catch(error => {
+          // Gère les erreurs en cas de problème avec la requête
+          console.error('Erreur :', error);
+          alert('Une erreur est survenue lors de la mise à jour.');
+        });
+    });
+  }
+  // Appelle la fonction au chargement de la page
+  document.addEventListener('DOMContentLoaded', envoyerValeurChoisie);
+
+    function initialiserModalCapteur() {
+    const modal = document.getElementById('ajoutValeurModal');
+    if (!modal) return;
+
+    modal.addEventListener('show.bs.modal', function (event) {
+      const bouton = event.relatedTarget;
+      const idCapteur = bouton.getAttribute('data-id');
+
+      // Injecte l’ID dans les bons éléments
+      modal.querySelector('#idCapteurInput').value = idCapteur;
+      modal.querySelector('#id-affiche').textContent = idCapteur;
+    });
+  }
+
+  document.addEventListener('DOMContentLoaded', initialiserModalCapteur);
+
     function modifierQuantite(idProduit, action) {
       fetch('', {
         method: 'POST',

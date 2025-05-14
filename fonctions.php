@@ -535,7 +535,7 @@ function supprimerNotification($connexion) {
 
 function afficherRelevements($connexion, $idCave) {
     // Prépare la requête pour récupérer les relevés de la cave
-    $query = "SELECT C.TypeCapteur, AVG(C.ValeurCapteur) AS MoyenneValeur, CU.ValeurChoix FROM  Capteur C JOIN ChoixUtilisateur CU ON C.idCapteur = CU.idCapteur WHERE C.idCave = $idCave AND C.TypeCapteur != 'Prise' GROUP BY C.TypeCapteur ORDER BY C.TypeCapteur";
+    $query = "SELECT C.TypeCapteur, AVG(C.ValeurCapteur) AS MoyenneValeur, CU.ValeurChoix, C.idCapteur FROM  Capteur C JOIN ChoixUtilisateur CU ON C.idCapteur = CU.idCapteur WHERE C.idCave = $idCave AND C.TypeCapteur != 'Prise' GROUP BY C.TypeCapteur ORDER BY C.TypeCapteur";
     $query2 = "SELECT TC.* FROM TypeCave TC JOIN Cave C ON C.TypeCave=TC.idTypeCave WHERE C.idCave = $idCave";
     $resultat2 = mysqli_query($connexion, $query2);
     $resultat = mysqli_query($connexion, $query);
@@ -567,7 +567,7 @@ function afficherRelevements($connexion, $idCave) {
             echo '<p class="card-text">Recommandé : ' . $recommandation . ' ' . $unite . '</p>';
             echo '<div class="d-flex justify-content-between align-items-center">';
             echo '<p class="card-text">Valeur choisie : ' . $row['ValeurChoix'] . ' ' . $unite . '</p>';
-            echo '<button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#ajoutValeurModal">';
+            echo '<button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#ajoutValeurModal" data-id="'.$row['idCapteur'].'">';
             echo 'Changer';
             echo '</button>';
             echo '</div>';
@@ -587,5 +587,20 @@ function afficherRelevements($connexion, $idCave) {
         }
     }
     echo '</div>';
+}
+
+
+function MAJChoixUtilisateur($connexion, $idCapteur, $valeur) {
+    // Prépare la requête pour mettre à jour le choix de l'utilisateur
+    $query = "UPDATE ChoixUtilisateur SET ValeurChoix = '$valeur' WHERE idCapteur = '$idCapteur'";
+    $resultat = mysqli_query($connexion, $query);
+
+    if ($resultat) {
+        // Si la mise à jour réussit, affiche un message de succès
+        echo "<p>Valeur mise à jour avec succès.</p>";
+    } else {
+        // Si la mise à jour échoue, affiche un message d'erreur
+        echo "<p>Erreur dans la mise à jour de la valeur.</p>";
+    }
 }
 ?>
