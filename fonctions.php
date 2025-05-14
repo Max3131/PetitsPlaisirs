@@ -535,7 +535,7 @@ function supprimerNotification($connexion) {
 
 function afficherRelevements($connexion, $idCave) {
     // Prépare la requête pour récupérer les relevés de la cave
-    $query = "SELECT TypeCapteur, AVG(ValeurCapteur) AS MoyenneValeur FROM  Capteur WHERE idCave = $idCave AND TypeCapteur != 'Prise' GROUP BY TypeCapteur ORDER BY TypeCapteur";
+    $query = "SELECT C.TypeCapteur, AVG(C.ValeurCapteur) AS MoyenneValeur, CU.ValeurChoix FROM  Capteur C JOIN ChoixUtilisateur CU ON C.idCapteur = CU.idCapteur WHERE C.idCave = $idCave AND C.TypeCapteur != 'Prise' GROUP BY C.TypeCapteur ORDER BY C.TypeCapteur";
     $query2 = "SELECT TC.* FROM TypeCave TC JOIN Cave C ON C.TypeCave=TC.idTypeCave WHERE C.idCave = $idCave";
     $resultat2 = mysqli_query($connexion, $query2);
     $resultat = mysqli_query($connexion, $query);
@@ -563,8 +563,15 @@ function afficherRelevements($connexion, $idCave) {
             echo '<div class="card w-100">';
             echo '<div class="card-body">';
             echo '<h5 class="card-title">' . $row['TypeCapteur'] . '</h5>';
+            
             echo '<h1 class="card-text">' . $row['MoyenneValeur'] . ' ' . $unite . ' </h1>';
+            
+            
             echo '<p class="card-text">Recommandé : ' . $recommandation . ' ' . $unite . '</p>';
+            echo '<div class="d-flex justify-content-between align-items-center">';
+            echo '<p class="card-text">Valeur choisie : ' . $row['ValeurChoix'] . ' ' . $unite . '</p>';
+            echo '<button class="btn btn-primary btn-sm">Modifier</button>';
+            echo '</div>';
             echo '</div>';
             echo '</div>';
             echo '</div>';

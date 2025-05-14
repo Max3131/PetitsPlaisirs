@@ -147,24 +147,31 @@ INSERT INTO Notification (DateNotification, HeureNotification, MessageNotificati
 ('2025-05-03', '12:00:00', 'Light level normal.', 3);
 
 INSERT INTO Capteur (NomCapteur, TypeCapteur, ValeurCapteur, StatusCapteur, idCave) VALUES
-('TempSensor1', 'Temperature', 12.5, 'On', 1),
-('TempSensor2', 'Temperature', 13.0, 'On', 1),
-('TempSensor1', 'Prise', 12.5, 'On', 1),
-('TempSensor2', 'Prise', 13.0, 'On', 1),
-('LightSensor1', 'Lumiere', 300.0, 'On', 1),
-('LightSensor2', 'Lumiere', 350.0, 'On', 1),
-('HumSensor1', 'Humidite', 60.0, 'On', 1),
-('HumSensor2', 'Humidite', 65.0, 'On', 1),
-('TempSensor3', 'Temperature', 14.0, 'On', 2),
-('LightSensor3', 'Lumiere', 400.0, 'On', 2),
+('TempSensor', 'Temperature', 12.5, 'On', 1),
+('LightSensor', 'Lumiere', 300.0, 'On', 1),
+('HumSensor', 'Humidite', 60.0, 'On', 1),
+('Prise 1', 'Prise', 12.5, 'On', 1),
+('Prise 2', 'Prise', 13.0, 'On', 1),
+('TempSensor', 'Temperature', 13.0, 'On', 2),
+('LightSensor', 'Lumiere', 350.0, 'On', 2),
+('HumSensor', 'Humidite', 65.0, 'On', 2),
+('Prise 1', 'Prise', 12.5, 'On', 2),
+('Prise 2', 'Prise', 13.0, 'On', 2);
 
 INSERT INTO Releve (DateReleve, HeureReleve, UniteReleve, ValeurReleve, idCapteur) VALUES
 ('2025-05-01', '12:00:00', 'Celsius', 12.5, 1),
-('2025-05-01', '12:30:00', 'Percent', 65.0, 2);
+('2025-05-01', '12:15:00', 'Lux', 300.0, 2),
+('2025-05-01', '12:20:00', 'Percent', 60.0, 3),
+('2025-05-01', '12:25:00', 'Celsius', 13.0, 6),
+('2025-05-01', '12:35:00', 'Lux', 350.0, 7),
+('2025-05-01', '12:40:00', 'Percent', 65.0, 8);
+
 
 INSERT INTO ChoixUtilisateur (DateChoix, HeureChoix, UniteChoix, ValeurChoix, idCapteur) VALUES
 ('2025-05-02', '14:00:00', 'Celsius', 13.0, 1),
-('2025-05-02', '14:30:00', 'Percent', 60.0, 2);
+('2025-05-02', '14:15:00', 'Lux', 350.0, 2),
+('2025-05-02', '14:30:00', 'Percent', 60.0, 3);
+
 INSERT INTO Produit (NomProduit, TypeProduit, AnneeProduit, idCave, QuantiteProduit) VALUES
 ('Merlot', 'Vin Rouge', 2020, 1, 10),
 ('Cabernet Sauvignon', 'Vin Rouge', 2019, 1, 20),
