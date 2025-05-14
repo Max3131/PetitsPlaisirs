@@ -1,13 +1,13 @@
-DROP TABLE Client;
-DROP TABLE Admin;
-DROP TABLE TypeCave;
-DROP TABLE Cave;
-DROP TABLE Notification;
-DROP TABLE Capteur;
-DROP TABLE Releve;
-DROP TABLE ChoixUtilisateur;
-DROP TABLE Produit;
 DROP TABLE Contenir;
+DROP TABLE Produit;
+DROP TABLE ChoixUtilisateur;
+DROP TABLE Releve;
+DROP TABLE Capteur;
+DROP TABLE Notification;
+DROP TABLE Cave;
+DROP TABLE TypeCave;
+DROP TABLE Admin;
+DROP TABLE Client;
 
 CREATE TABLE Client (
     idClient INT AUTO_INCREMENT PRIMARY KEY,
@@ -141,8 +141,14 @@ INSERT INTO Cave (NomCave, VolumeCave, AdresseCave, VilleCave, CodePostalCave, T
 ('Cave de La Havane', 600, '4 Chemin des Cigares', 'Havane', '10100', 'Cigare', 3);
 
 INSERT INTO Notification (DateNotification, HeureNotification, MessageNotification, idCave) VALUES
-('2025-05-01', '10:00:00', 'Temperature too high!', 1),
-('2025-05-01', '10:00:00', 'Temperature too high!', 1),
+('2025-05-01', '10:00:00', 'Rajouter une bouteille', 1),
+('2025-05-01', '10:00:00', 'Supprimer une bouteille', 1),
+('2025-05-01', '10:00:00', 'Supprimer une bouteille', 1),
+('2025-05-01', '10:00:00', 'Rajouter une bouteille', 1),
+('2025-05-01', '10:00:00', 'Supprimer une bouteille', 1),
+('2025-05-01', '10:00:00', 'Supprimer une bouteille', 1),
+('2025-05-01', '10:00:00', 'Supprimer une bouteille', 1),
+('2025-05-01', '10:00:00', 'Supprimer une bouteille', 1),
 ('2025-05-02', '11:00:00', 'Humidity too low!', 2),
 ('2025-05-03', '12:00:00', 'Light level normal.', 3);
 
@@ -156,6 +162,7 @@ INSERT INTO Capteur (NomCapteur, TypeCapteur, ValeurCapteur, StatusCapteur, idCa
 ('LightSensor', 'Lumiere', 350.0, 'On', 2),
 ('HumSensor', 'Humidite', 65.0, 'On', 2),
 ('Prise 1', 'Prise', 12.5, 'On', 2),
+('Porte', 'Porte', 0, 'On', 1),
 ('Prise 2', 'Prise', 13.0, 'On', 2);
 
 INSERT INTO Releve (DateReleve, HeureReleve, UniteReleve, ValeurReleve, idCapteur) VALUES
