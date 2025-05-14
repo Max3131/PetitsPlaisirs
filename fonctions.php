@@ -563,14 +563,13 @@ function afficherRelevements($connexion, $idCave) {
             echo '<div class="card w-100">';
             echo '<div class="card-body">';
             echo '<h5 class="card-title">' . $row['TypeCapteur'] . '</h5>';
-            
             echo '<h1 class="card-text">' . $row['MoyenneValeur'] . ' ' . $unite . ' </h1>';
-            
-            
             echo '<p class="card-text">Recommandé : ' . $recommandation . ' ' . $unite . '</p>';
             echo '<div class="d-flex justify-content-between align-items-center">';
             echo '<p class="card-text">Valeur choisie : ' . $row['ValeurChoix'] . ' ' . $unite . '</p>';
-            echo '<button class="btn btn-primary btn-sm">Modifier</button>';
+            echo '<button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#ajoutValeurModal">';
+            echo 'Changer';
+            echo '</button>';
             echo '</div>';
             echo '</div>';
             echo '</div>';

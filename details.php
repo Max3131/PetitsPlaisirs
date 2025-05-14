@@ -151,6 +151,46 @@ modifierStatusCapteur($connexion);
     </div>
   </div>
 
+
+  <!-- Modal pour ajouter une valeur souahité -->
+  <div class="modal fade" id="ajoutValeurModal" tabindex="-1" aria-labelledby="ajoutValeurLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content text-danger">
+        <div class="modal-header">
+          <h5 class="modal-title" id="ajoutValeurLabel">Selectionner une valeur</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fermer"></button>
+        </div>
+        <div class="modal-body">
+          <form id="formAjoutValeur">
+            <div class="mb-3">
+              <label for="Valeur" class="form-label">Valeur souhaité</label>
+              <input type="number" class="form-control" id="Valeur" required>
+            </div>
+
+            <!--
+            <div class="mb-3">
+              <label for="typeProduit" class="form-label">Type</label>
+              <input type="text" class="form-control" id="typeProduit" required>
+            </div>
+            <div class="mb-3">
+              <label for="anneeProduit" class="form-label">Année</label>
+              <input type="number" class="form-control" id="anneeProduit" required>
+            </div>
+            <div class="mb-3">
+              <label for="quantiteProduit" class="form-label">Quantité</label>
+              <input type="number" class="form-control" id="quantiteProduit" required>
+            </div>
+            </form>
+          </div>
+            -->
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+          <button type="button" class="btn btn-success" onclick="ajouterProduit(<?php echo $id; ?>)">Ajouter</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <script>
     function modifierQuantite(idProduit, action) {
       fetch('', {
