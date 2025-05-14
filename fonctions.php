@@ -533,102 +533,53 @@ function supprimerNotification($connexion) {
     }
 }
 
-
-function getLuminosite($connexion, $idCave) {
-    //requête SQL
-    $query = "
-        SELECT R.ValeurReleve 
-        FROM releve R 
-        JOIN capteur C ON C.idCapteur = R.idCapteur 
-        WHERE C.idCave = $idCave 
-          AND C.TypeCapteur = 'Luminosite'
-    ";
-$resultat = mysqli_query($connexion, $query);
-
-    if ($resultat && mysqli_num_rows($resultat) > 0) {
-        $row = mysqli_fetch_assoc($resultat); 
-        return $row['ValeurReleve'];
-    } else {
-        return null;
-    }
-}
-function getTemperature($connexion, $idCave) {
-    //requête SQL
-    $query = "
-        SELECT R.ValeurReleve 
-        FROM releve R 
-        JOIN capteur C ON C.idCapteur = R.idCapteur 
-        WHERE C.idCave = $idCave 
-          AND C.TypeCapteur = 'Temperature'
-          ORDER BY R.dateReleve DESC
-    LIMIT 1
-    ";
+function afficherRelevements($connexion, $idCave) {
+    // Prépare la requête pour récupérer les relevés de la cave
+    $query = "SELECT TypeCapteur, AVG(ValeurCapteur) AS MoyenneValeur FROM  Capteur WHERE idCave = $idCave AND TypeCapteur != 'Prise' GROUP BY TypeCapteur ORDER BY TypeCapteur";
+    $query2 = "SELECT TC.* FROM TypeCave TC JOIN Cave C ON C.TypeCave=TC.idTypeCave WHERE C.idCave = $idCave";
+    $resultat2 = mysqli_query($connexion, $query2);
     $resultat = mysqli_query($connexion, $query);
-
-    if ($resultat && mysqli_num_rows($resultat) > 0) {
-        $row = mysqli_fetch_assoc($resultat); 
-        return $row['ValeurReleve'];
-    } else {
-        echo "<p>Aucun capteur temp trouvé.</p>";
-        return null;
-        
+    $unite = 'null';
+    $recommandation = 'null';
+    echo '<div class="row">';
+    if ($resultat2 && mysqli_num_rows($resultat2) > 0) {
+        $row2 = mysqli_fetch_assoc($resultat2); // Récupérer les données de $resultat2
     }
-}
-function getHumidite($connexion, $idCave) {
-    //requête SQL
-    $query = "
-        SELECT R.ValeurReleve 
-        FROM releve R 
-        JOIN capteur C ON C.idCapteur = R.idCapteur 
-        WHERE C.idCave = $idCave 
-          AND C.TypeCapteur = 'Humidity' 
-    ";
-    $resultat = mysqli_query($connexion, $query);
-
     if ($resultat && mysqli_num_rows($resultat) > 0) {
-        $row = mysqli_fetch_assoc($resultat); 
-        return $row['ValeurReleve'];
-    } else {
-        echo "<p>Aucun capteur humidite trouvé.</p>";
-        return null;
-    }
-}
-function getOpti($connexion, $idCave) {
-    //requête SQL
-    $query = "
-        SELECT TC.TempOptiC, TC.LumOptiC, TC.HumOptiC 
-        FROM cave Ca
-        JOIN TypeCave TC ON Ca.TypeCave = TC.idTypeCave
-        JOIN Capteur C ON C.idCave = Ca.idCave
-        JOIN Client CL ON CL.idClient = Ca.idClient
-        WHERE CL.EmailCli = '".$_SESSION['email']."' 
-          AND C.idCave = $idCave        
-    ";
-    $resultat = mysqli_query($connexion, $query);
+        // Affiche les relevés dans un tableau
+        while ($row = mysqli_fetch_assoc($resultat)) {
+            if ($row['TypeCapteur'] == 'Lumiere') {
+                $unite = 'Lux';
+                $recommandation = isset($row2['LumOptiC']) ? $row2['LumOptiC'] : 'N/A';
+            } elseif ($row['TypeCapteur'] == 'Temperature') {
+                $unite = '°C';
+                $recommandation = isset($row2['TempOptiC']) ? $row2['TempOptiC'] : 'N/A';
+            } elseif ($row['TypeCapteur'] == 'Humidite') {
+                $unite = '%';
+                $recommandation = isset($row2['HumOptiC']) ? $row2['HumOptiC'] : 'N/A';
+            }
 
-    if ($resultat && mysqli_num_rows($resultat) > 0) {
-       return mysqli_fetch_assoc($resultat);
+            echo '<div class="col-4 d-flex justify-content-center">';
+            echo '<div class="card w-100">';
+            echo '<div class="card-body">';
+            echo '<h5 class="card-title">' . $row['TypeCapteur'] . '</h5>';
+            echo '<h1 class="card-text">' . $row['MoyenneValeur'] . ' ' . $unite . ' </h1>';
+            echo '<p class="card-text">Recommandé : ' . $recommandation . ' ' . $unite . '</p>';
+            echo '</div>';
+            echo '</div>';
+            echo '</div>';
+        }
     } else {
-        echo "<p>Aucun opti trouvé.</p>";
-        return null;    
+        for ($i = 0; $i < 3; $i++) {
+            echo '<div class="col-4 d-flex justify-content-center">';
+            echo '<div class="card w-100">';
+            echo '<div class="card-body">';
+            echo '<h5 class="card-title"> Aucun Capteur trouve </h5>';
+            echo '</div>';
+            echo '</div>';
+            echo '</div>';
+        }
     }
-}
-function getVolume($connexion, $idCave) {
-    //requête SQL
-    $query = "
-        SELECT Ca.VolumeCave
-        FROM cave Ca JOIN client CL ON CL.idClient = Ca.idClient
-        WHERE CL.EmailCli = '".$_SESSION['email']."' 
-          AND Ca.idCave = $idCave       
-    ";
-    $resultat = mysqli_query($connexion, $query);
-
-    if ($resultat && mysqli_num_rows($resultat) > 0) {
-       $row=  mysqli_fetch_assoc($resultat);
-       return $row['VolumeCave'];
-    } else {
-        echo "<p>Aucun volume trouvé.</p>";
-        return null;    
-    }
+    echo '</div>';
 }
 ?>

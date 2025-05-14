@@ -63,36 +63,40 @@ modifierStatusCapteur($connexion);
         </div>
         <div class="row mb-5">
           <div class="col-8">
+            <!--
             <div class="row">
               <div class="col-4 d-flex justify-content-center">
-                <div class="card w-100">
-                  <div class="card-body">
-                  <h5 class="card-title">Luminosité</h5>
-                  <h1 class="card-text"><span id="valLum"><?php echo $lux ?></span> Lux</h1>
-                  <p class="card-text">Recommandé : <span id="valLumOptiC"><?php echo $opti['LumOptiC'] ?></span> Lux</p>
-                  </div>
+              <div class="card w-100">
+                <div class="card-body">
+                <h5 class="card-title">Luminosité</h5>
+                <h1 class="card-text">26 Lux</h1>
+                <p class="card-text">Recommandé : 26 Lux</p>
                 </div>
               </div>
-              <div class="col-4 d-flex justify-content-center">
-                <div class="card w-100">
-                  <div class="card-body">
-                  <h5 class="card-title">Température</h5>
-                  <h1 class="card-text"><span id="valTemp"><?php echo $temperature?></span> °C</h1>
-                  <p class="card-text">Recommandé : <span id="valTempOptiC"><?php echo $opti['TempOptiC'] ?></span> °C</p>
-                  </div>
-                </div>
               </div>
               <div class="col-4 d-flex justify-content-center">
-                <div class="card w-100">
-                  <div class="card-body">
-                  <h5 class="card-title">Humidité</h5>
-                  <h1 class="card-text"><span id="valHumidite"><?php echo $humid?></span> %</h1>
-                  <p class="card-text">Recommandé : <span id="valHumOptiC"><?php echo $opti['HumOptiC']; ?></span> %</p>
-                  </div>
+              <div class="card w-100">
+                <div class="card-body">
+                <h5 class="card-title">Luminosité</h5>
+                <h1 class="card-text">26 Lux</h1>
+                <p class="card-text">Recommandé : 26 Lux</p>
                 </div>
+              </div>
+              </div>
+              <div class="col-4 d-flex justify-content-center">
+              <div class="card w-100">
+                <div class="card-body">
+                <h5 class="card-title">Luminosité</h5>
+                <h1 class="card-text">26 Lux</h1>
+                <p class="card-text">Recommandé : 26 Lux</p>
+                </div>
+              </div>
               </div>
             </div>
+            -->
             <?php
+            //Affichage des relevés
+            afficherRelevements($connexion, $id);
             // Affichage des notifications
             afficherNotifications($connexion, $id);
             ?>
@@ -101,7 +105,6 @@ modifierStatusCapteur($connexion);
           // Affichage des capteurs
           afficherCapteurs($connexion, $id);
           ?>
-            
         </div>
       </section>
     </div>
