@@ -426,19 +426,23 @@ function afficherCapteurs($connexion, $idCave) {
             if ($row['TypeCapteur'] == 'Prise'){
             echo '<div class="card-body">';
             echo '<div class="d-flex justify-content-between align-items-center">';
-            echo '<h5 class="card-title mb-0">' . $row['NomCapteur'] . '</h5>';
-            echo '<form method="post" action="changer_status.php">'; // adapt if needed
+            echo '<h5 class="card-title mb-0">' . $row['NomCapteur'] . '</h5>';   
             echo '<input type="hidden" name="StatusCapteur" value="' . $row['StatusCapteur'] . '">';
             echo '<button type="button" class="btn btn-sm btn-primary" onclick="modifierStatusCapteur(' . $row['idCapteur'] . ', \'' . addslashes($row['StatusCapteur']) . '\')"
  >Status</button>';
-            echo '</form>';
             echo '</div>';
             echo '<p class="card-text mt-2">' . htmlspecialchars($row['StatusCapteur']) . '</p>';
             echo '</div>';
         } else {
             echo '<div class="card-body">';
-            echo '<h5 class="card-title">' . $row['NomCapteur'] . '</h5>';
-            echo '<p class="card-text">' . $row['StatusCapteur'] . '</p>';
+            echo '<div class="d-flex justify-content-between align-items-center">';
+            echo '<h5 class="card-title mb-0">' . $row['NomCapteur'] . '</h5>';   
+            echo '<input type="hidden" name="StatusCapteur" value="' . $row['StatusCapteur'] . '">';
+            echo '<button class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#historiqueCapteur" data-id="'.$row['idCapteur'].'">';
+            echo 'Historique';
+            echo '</button>';
+            echo '</div>';
+            echo '<p class="card-text mt-2">' . htmlspecialchars($row['StatusCapteur']) . '</p>';
             echo '</div>';
         }
             
@@ -473,6 +477,44 @@ function modifierStatusCapteur($connexion) {
         }
     }
 }
+
+// ///////////////////////////////////////////////////////////////////////////////////////////////
+// // Fonction pour afficher l'historique s'un capteur
+
+function afficherHistoriqueCapteur($connexion, $idCapteur) {
+    // Prépare la requête pour récupérer l'historique du capteur
+    $query = "SELECT R.* FROM Releve R JOIN Capteur C ON R.idCapteur = C.idCapteur WHERE R.idCapteur = '$idCapteur' ORDER BY R.DateReleve DESC";
+    $resultat = mysqli_query($connexion, $query);
+    echo '<div class="row mt-4">';
+    echo '<div class="col d-flex justify-content-center align-items-center">';
+    echo '<div class="card w-100" style="max-height: 400px; overflow-y: auto;">';
+    echo '<h5 class="card-header">Centre de Notification</h5>';
+    echo '<div class="card-body">';
+    echo '<ul class="list-group">';
+    if ($resultat && mysqli_num_rows($resultat) > 0) {
+        // Affiche l'historique dans un tableau
+        while ($row = mysqli_fetch_assoc($resultat)) {
+            echo '<li class="list-group-item d-flex justify-content-between align-items-center">';
+            echo '<div>'.$row['ValeurReleve'].' '.$row['UniteReleve'].'</div>';
+            echo '<div>';
+            echo '<span class="text me-4">'.$row['HeureReleve'].'</span>';
+            echo '<span class="text me-3">'.$row['DateReleve'].'</span>';
+            echo '</div>';
+            echo '</li>';
+        }
+        echo '</tbody>';
+        echo '</table>';
+    } else {
+        // Si aucun historique n'est trouvé, affiche un message
+        echo "<p>Aucun historique trouvé.</p>";
+    }
+    echo '</ul>';
+    echo '</div>';
+    echo '</div>';
+    echo '</div>';
+    echo '</div>';
+}
+
 
 
 /////////////////////////////////////////////////////////////////////////////////////////////

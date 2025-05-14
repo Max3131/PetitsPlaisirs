@@ -152,6 +152,8 @@ INSERT INTO Notification (DateNotification, HeureNotification, MessageNotificati
 ('2025-05-02', '11:00:00', 'Humidity too low!', 2),
 ('2025-05-03', '12:00:00', 'Light level normal.', 3);
 
+-- Il faut que chaque capteur ait un choix utilisateur lorsque il est ajouté, même si ce choix est nul pour la temperature, l'humidité et la luminosité
+
 INSERT INTO Capteur (NomCapteur, TypeCapteur, ValeurCapteur, StatusCapteur, idCave) VALUES
 ('TempSensor', 'Temperature', 12.5, 'On', 1),
 ('LightSensor', 'Lumiere', 300.0, 'On', 1),
@@ -165,19 +167,35 @@ INSERT INTO Capteur (NomCapteur, TypeCapteur, ValeurCapteur, StatusCapteur, idCa
 ('Porte', 'Porte', 0, 'On', 1),
 ('Prise 2', 'Prise', 13.0, 'On', 2);
 
+
 INSERT INTO Releve (DateReleve, HeureReleve, UniteReleve, ValeurReleve, idCapteur) VALUES
+('2025-05-01', '12:00:00', 'Celsius', 12.5, 1),
+('2025-05-01', '12:00:00', 'Celsius', 12.5, 1),
+('2025-05-01', '12:00:00', 'Celsius', 12.5, 1),
+('2025-05-01', '12:00:00', 'Celsius', 12.5, 1),
+('2025-05-01', '12:00:00', 'Celsius', 12.5, 1),
+('2025-05-01', '12:00:00', 'Celsius', 12.5, 1),
+('2025-05-01', '12:00:00', 'Celsius', 12.5, 1),
+('2025-05-01', '12:00:00', 'Celsius', 12.5, 1),
+('2025-05-01', '12:00:00', 'Celsius', 12.5, 1),
+('2025-05-01', '12:00:00', 'Celsius', 12.5, 1),
+('2025-05-01', '12:00:00', 'Celsius', 12.5, 1),
 ('2025-05-01', '12:00:00', 'Celsius', 12.5, 1),
 ('2025-05-01', '12:15:00', 'Lux', 300.0, 2),
 ('2025-05-01', '12:20:00', 'Percent', 60.0, 3),
 ('2025-05-01', '12:25:00', 'Celsius', 13.0, 6),
 ('2025-05-01', '12:35:00', 'Lux', 350.0, 7),
+('2025-05-01', '12:35:00', 'Y/N', 1, 10),
 ('2025-05-01', '12:40:00', 'Percent', 65.0, 8);
 
 
 INSERT INTO ChoixUtilisateur (DateChoix, HeureChoix, UniteChoix, ValeurChoix, idCapteur) VALUES
 ('2025-05-02', '14:00:00', 'Celsius', 13.0, 1),
 ('2025-05-02', '14:15:00', 'Lux', 350.0, 2),
-('2025-05-02', '14:30:00', 'Percent', 60.0, 3);
+('2025-05-02', '14:30:00', 'Percent', 60.0, 3),
+('2025-05-02', '14:00:00', 'Celsius', 13.0, 6),
+('2025-05-02', '14:15:00', 'Lux', 350.0, 7),
+('2025-05-02', '14:30:00', 'Percent', 60.0, 8);
 
 INSERT INTO Produit (NomProduit, TypeProduit, AnneeProduit, idCave, QuantiteProduit) VALUES
 ('Merlot', 'Vin Rouge', 2020, 1, 10),

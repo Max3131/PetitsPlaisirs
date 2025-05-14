@@ -202,7 +202,7 @@ modifierStatusCapteur($connexion);
             <input type="number" class="form-control" id="Valeur" name="valeur" required>
           </div>
 
-          <p>L'ID est : <span id="id-affiche"></span></p>
+          <!-- <p>L'ID est : <span id="id-affiche"></span></p> -->
         </form>
       </div>
 
@@ -213,6 +213,31 @@ modifierStatusCapteur($connexion);
     </div>
   </div>
 </div>
+
+<!-- Modal pour afficher l'historique des capteurs -->
+ <!-- Modal pour ajouter une valeur souahité -->
+  
+  <div class="modal fade" id="historiqueCapteur" tabindex="-1" aria-labelledby="historiqueCapteurLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content text-danger">
+      <div class="modal-header">
+        <h5 class="modal-title" id="historiqueCapteurLabel">Historique du capteur</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fermer"></button>
+      </div>
+
+      <div class="modal-body" id="contenu-historique-capteur">
+        <!-- Contenu chargé dynamiquement via AJAX -->
+        <p>Chargement...</p>
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
 
 <script>
 
@@ -256,6 +281,10 @@ modifierStatusCapteur($connexion);
   // Appelle la fonction au chargement de la page
   document.addEventListener('DOMContentLoaded', envoyerValeurChoisie);
 
+
+
+
+
     function initialiserModalCapteur() {
     const modal = document.getElementById('ajoutValeurModal');
     if (!modal) return;
@@ -269,8 +298,41 @@ modifierStatusCapteur($connexion);
       modal.querySelector('#id-affiche').textContent = idCapteur;
     });
   }
-
+  // Appelle la fonction pour initialiser le modal
   document.addEventListener('DOMContentLoaded', initialiserModalCapteur);
+
+
+
+
+  function initialiserModalHistoriqueCapteur() {
+  const modal = document.getElementById('historiqueCapteur');
+  if (!modal) return;
+
+  modal.addEventListener('show.bs.modal', function (event) {
+    const bouton = event.relatedTarget;
+    const idCapteur = bouton.getAttribute('data-id');
+
+    // Met à jour dynamiquement le contenu via AJAX
+    const contenu = modal.querySelector('#contenu-historique-capteur');
+    contenu.innerHTML = 'Chargement...';
+
+    fetch('afficherHistoriqueCapteur.php?id=' + encodeURIComponent(idCapteur))
+      .then(response => response.text())
+      .then(data => {
+        contenu.innerHTML = data;
+      })
+      .catch(error => {
+        contenu.innerHTML = 'Erreur de chargement.';
+        console.error(error);
+      });
+  });
+}
+
+document.addEventListener('DOMContentLoaded', initialiserModalHistoriqueCapteur);
+  
+
+
+
 
     function modifierQuantite(idProduit, action) {
       fetch('', {
