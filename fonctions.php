@@ -482,7 +482,7 @@ function afficherNotifications($connexion, $idCave) {
     // Prépare la requête pour récupérer les notifications de la cave
     $query = "SELECT * FROM Notification WHERE idCave = '$idCave'";
     $resultat = mysqli_query($connexion, $query);
-    echo '<div class="row mt-5">';
+    echo '<div class="row mt-4">';
     echo '<div class="col d-flex justify-content-center align-items-center">';
     echo '<div class="card w-100" style="max-height: 400px; overflow-y: auto;">';
     echo '<h5 class="card-header">Centre de Notification</h5>';

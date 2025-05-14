@@ -89,6 +89,28 @@ modifierStatusCapteur($connexion);
             <?php
             //Affichage des relevés
             afficherRelevements($connexion, $id);
+            //Bouton actualiser
+            ?>
+            <div class="row mt-4">
+              <div class="col-6 d-flex justify-content-center">
+                <div class="card w-100">
+                  <div class="card-body d-flex justify-content-between align-items-center">
+                    <h5 class="mb-0">Statut porte :</h5>
+                    <h5 class="mb-0 text-end" style="color:red;">Ouverte</h5>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-6 d-flex justify-content-center">
+                <div class="card w-100">
+                  <div class="card-body d-flex justify-content-between align-items-center">
+                    <h5 class="card-title mb-0">Relevés :</h5>
+                    <button type="button" class="btn btn-primary" onclick="lancerScript()">Actualiser</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <?php
             // Affichage des notifications
             afficherNotifications($connexion, $id);
             ?>
