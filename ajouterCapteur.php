@@ -40,8 +40,8 @@ session_start();
     <header class="menu-banner">
         <nav>
             <ul>
-                <li><a href="index.html">Accueil</a></li> <!-- Lien vers la page d'accueil -->
-                <li><a href="dashboardAdmin.php">Dashboard</a></li> <!-- Lien vers le tableau de bord -->
+                <li><a href="rediriger.php">Menu</a></li> <!-- Lien vers le menu -->
+                <li><a href="index.html">Déconnexion</a></li> <!-- Lien vers la déconnexion -->
             </ul>
         </nav>
     </header>
@@ -66,22 +66,22 @@ session_start();
                 <div class="mb-3">
                     <label for="statusCapteur" class="form-label">Status du Capteur</label>
                     <input type="text" class="form-control" id="statusCapteur" name="satutusCapteur" placeholder="150" required>
-                </div>put type="text" class="form-control" id="codePostal" placeholder="75000" required>
-                </div>
                 <div class="mb-3">
-                    <label for="typeCapteur" class="form-label">Type de cpateur</label>
+                    <label for="typeCapteur" class="form-label">Type de capteur</label>
                     <select class="form-select" id="wineType" required>
                         <option value="">Choisir...</option>
-                        <option value="rouge">Interrupteur</option>
-                        <option value="blanc">Lumiere</option>
-                        <option value="champagne">Humidite</option>
+                        <option value="Interrupteur">Interrupteur</option>
+                        <option value="Lumiere">Lumiere</option>
+                        <option value="Humitide">Humidite</option>
+                        <option value="Temperature">Temperature</option>
+                        <option value="Prise">Prise</option>
                     </select>
-                </div>  
-                <div class="d-grid">
-                    <button type="submit" class="btn btn-primary">Ajouter la cave</button>
+                
+                    <button type="submit" class="btn btn-primary">Ajouter le capteur</button>
                 </div>
             </form>
         </div>
+    </div>
     </div>
 
     <!-- Pied de page -->

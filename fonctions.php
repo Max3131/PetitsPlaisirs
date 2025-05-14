@@ -286,10 +286,10 @@ function recupererIdClient($connexion, $email, $dateN) {
     }
 }
 
-function ajouterCave($connexion, $idClient, $nomCave, $adresse, $codePostal, $ville, $volume, $typeVin) {
+function ajouterCave($connexion, $idClient, $nomCave, $adresse, $codePostal, $ville, $volume, $typeCave) {
     // Prépare la requête d'insertion
     $query = "INSERT INTO cave (idClient, NomCave, AdresseCave, CodePostalCave, VilleCave, VolumeCave, TypeCave) 
-              VALUES ('$idClient', '$nomCave', '$adresse', '$codePostal', '$ville', '$volume', '$typeVin')";
+              VALUES ('$idClient', '$nomCave', '$adresse', '$codePostal', '$ville', '$volume', '$typeCave')";
 
     $resultat = mysqli_query($connexion, $query);
 
@@ -482,7 +482,7 @@ function afficherNotifications($connexion, $idCave) {
     // Prépare la requête pour récupérer les notifications de la cave
     $query = "SELECT * FROM Notification WHERE idCave = '$idCave'";
     $resultat = mysqli_query($connexion, $query);
-    echo '<div class="row mt-5">';
+    echo '<div class="row mt-4">';
     echo '<div class="col d-flex justify-content-center align-items-center">';
     echo '<div class="card w-100" style="max-height: 400px; overflow-y: auto;">';
     echo '<h5 class="card-header">Centre de Notification</h5>';
@@ -603,4 +603,44 @@ function MAJChoixUtilisateur($connexion, $idCapteur, $valeur) {
         echo "<p>Erreur dans la mise à jour de la valeur.</p>";
     }
 }
+
+function dirigerMenu($connexion, $email) {
+    // Prépare la requête pour récupérer le type d'utilisateur
+    $query = "SELECT * FROM Admin WHERE EmailAdmin = '$email'";
+    $resultat = mysqli_query($connexion, $query);
+
+    if ($resultat && mysqli_num_rows($resultat) == 1) {
+        header("Location: menuAdmin.php");
+        exit();
+        } 
+        else if ($resultat && mysqli_num_rows($resultat) == 0) {
+            header("Location: menu.php");
+            exit();
+        }
+        else {
+        // Si l'utilisateur n'est pas trouvé ou si le type d'utilisateur n'est pas valide, redirigez vers la page de connexion
+        header("Location: index.html");
+        exit();
+    }
+}
+function redirigerCreaCave($connexion, $email) {
+    // Prépare la requête pour récupérer le type d'utilisateur
+    $query = "SELECT * FROM Admin WHERE EmailAdmin = '$email'";
+    $resultat = mysqli_query($connexion, $query);
+
+    if ($resultat && mysqli_num_rows($resultat) == 1) {
+        return "Admin";
+        exit();
+        } 
+        else if ($resultat && mysqli_num_rows($resultat) == 0) {
+            return "Client";
+            exit();
+        } 
+        else {
+        // Si l'utilisateur n'est pas trouvé ou si le type d'utilisateur n'est pas valide, redirigez vers la page de connexion
+        header("Location: index.html");
+        exit();
+    }
+}
 ?>
+

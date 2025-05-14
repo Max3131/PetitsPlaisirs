@@ -2,19 +2,26 @@
 require('connect.php');
 require('fonctions.php');
 
-session_start();
-if (!isset($_SESSION['email'])) {
-  header('Location: index.html');
-  exit();
-}
+  session_start();
+  if (!isset($_SESSION['email'])) {
+    header('Location: index.html');
+    exit();
+  }
+  $id = $_GET['id'];
+  $connexion = mysqli_connect("p:".SERVEUR, NOM, PASSE, BD);
+  if (!$connexion) {
+    $_SESSION['message'] = "Problème : Connexion au serveur ou à la base de données impossible.";
+    header("Location: connexion.php");
+    exit();
+  }
+  modifierQuantite($connexion); 
+  supprimerNotification($connexion);
 
-$id = $_GET['id'];
-$connexion = mysqli_connect("p:".SERVEUR, NOM, PASSE, BD);
-if (!$connexion) {
-  $_SESSION['message'] = "Problème : Connexion au serveur ou à la base de données impossible.";
-  header("Location: connexion.php");
-  exit();
-}
+  /*$lux= getLuminosite($connexion, $id);
+  $temperature = getTemperature($connexion, $id);
+  $humid = getHumidite($connexion, $id);
+  $opti= getOpti($connexion, $id);
+  $volume = getVolume($connexion, $id);*/
 
 modifierQuantite($connexion);
 supprimerNotification($connexion);
@@ -30,6 +37,7 @@ modifierStatusCapteur($connexion);
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
   <title>Accueil</title>
 </head>
 
@@ -38,9 +46,8 @@ modifierStatusCapteur($connexion);
   <header class="menu-banner">
     <nav>
       <ul>
-        <li><a href="index.html">Accueil</a></li>
-        <li><a href="dashboard.php">Dashboard</a></li>
-        <li><a href="logout.php">Déconnexion</a></li>
+        <li><a href="rediriger.php">Menu</a></li>
+        <li><a href="index.html">Déconnexion</a></li>
       </ul>
     </nav>
   </header>
@@ -89,6 +96,28 @@ modifierStatusCapteur($connexion);
             <?php
             //Affichage des relevés
             afficherRelevements($connexion, $id);
+            //Bouton actualiser
+            ?>
+            <div class="row mt-4">
+              <div class="col-6 d-flex justify-content-center">
+                <div class="card w-100">
+                  <div class="card-body d-flex justify-content-between align-items-center">
+                    <h5 class="mb-0">Statut porte :</h5>
+                    <h5 class="mb-0 text-end" style="color:red;">Ouverte</h5>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-6 d-flex justify-content-center">
+                <div class="card w-100">
+                  <div class="card-body d-flex justify-content-between align-items-center">
+                    <h5 class="card-title mb-0">Relevés :</h5>
+                    <button type="button" class="btn btn-primary" onclick="lancerScript()">Actualiser</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <?php
             // Affichage des notifications
             afficherNotifications($connexion, $id);
             ?>
@@ -101,6 +130,8 @@ modifierStatusCapteur($connexion);
       </section>
     </div>
   </main>
+
+
 
   <?php afficherInventaire($connexion, $id); ?>
 

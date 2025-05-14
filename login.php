@@ -18,10 +18,10 @@
       $password = $_POST["password"];
 
       if(verifieProfilU($connexion, $email, $password)){
-          header("Location: dashboard.php"); // Redirige vers le tableau de bord
+          header("Location: menu.php"); // Redirige vers le tableau de bord
           exit();
       } elseif(verifieProfilA($connexion, $email, $password)){
-          header("Location: dashboardAdmin.php"); // Redirige vers la page admin
+          header("Location: menuAdmin.php"); // Redirige vers la page admin
           exit();
       } else {
           header("Location: connexion.php"); // Redirige vers la page de connexion

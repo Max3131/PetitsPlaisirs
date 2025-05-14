@@ -25,7 +25,7 @@ $password = $_POST['password'];
 
 if (creationProfil($connexion, $prenom, $nom, $date_naissance, $adresse, $ville, $code_postal, $email, $password)) {
     // Si la création du profil réussit, on redirige vers le tableau de bord
-    header("Location: dashboard.php");
+    header("Location: menu.php");
 } else {
     header("Location: createAccount.php"); // Redirige vers la page d'inscription
 }

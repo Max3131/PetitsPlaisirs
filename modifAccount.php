@@ -25,8 +25,8 @@ if (!isset($_SESSION['email'])) {
     <header class="menu-banner">
         <nav>
             <ul>
-                <li><a href="dashboard.php">Dashboard</a></li>
-                <li><a href="logout.php">Déconnexion</a></li>
+                <li><a href="rediriger.php">Menu</a></li>
+                <li><a href="index.html">Déconnexion</a></li>
             </ul>
         </nav>
     </header>
