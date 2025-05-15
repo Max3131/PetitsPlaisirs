@@ -164,7 +164,8 @@ INSERT INTO Capteur (NomCapteur, TypeCapteur, ValeurCapteur, StatusCapteur, idCa
 ('LightSensor', 'Lumiere', 350.0, 'On', 2),
 ('HumSensor', 'Humidite', 65.0, 'On', 2),
 ('Prise 1', 'Prise', 12.5, 'On', 2),
-('Porte', 'Porte', 0, 'On', 1),
+('Porte 1', 'Porte', 0, 'On', 1),
+('Porte 2', 'Porte', 1, 'On', 1),
 ('Prise 2', 'Prise', 13.0, 'On', 2);
 
 
@@ -185,7 +186,8 @@ INSERT INTO Releve (DateReleve, HeureReleve, UniteReleve, ValeurReleve, idCapteu
 ('2025-05-01', '12:20:00', 'Percent', 60.0, 3),
 ('2025-05-01', '12:25:00', 'Celsius', 13.0, 6),
 ('2025-05-01', '12:35:00', 'Lux', 350.0, 7),
-('2025-05-01', '12:35:00', 'Y/N', 1, 10),
+('2025-05-01', '12:35:00', 'Y/N', 0, 10),
+('2025-05-01', '12:35:00', 'Y/N', 1, 11),
 ('2025-05-01', '12:40:00', 'Percent', 65.0, 8);
 
 

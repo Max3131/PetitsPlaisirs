@@ -457,7 +457,7 @@ function modifierStatusCapteur($connexion) {
 
 function afficherHistoriqueCapteur($connexion, $idCapteur) {
     // Prépare la requête pour récupérer l'historique du capteur
-    $query = "SELECT R.* FROM Releve R JOIN Capteur C ON R.idCapteur = C.idCapteur WHERE R.idCapteur = '$idCapteur' ORDER BY R.DateReleve DESC";
+    $query = "SELECT R.* FROM Releve R JOIN Capteur C ON R.idCapteur = C.idCapteur WHERE R.idCapteur = '$idCapteur' ORDER BY R.DateReleve DESC, R.HeureReleve DESC";
     $resultat = mysqli_query($connexion, $query);
     echo '<div class="row mt-4">';
     echo '<div class="col d-flex justify-content-center align-items-center">';
@@ -551,7 +551,7 @@ function supprimerNotification($connexion) {
 
 function afficherRelevements($connexion, $idCave) {
     // Prépare la requête pour récupérer les relevés de la cave
-    $query = "SELECT C.TypeCapteur, AVG(C.ValeurCapteur) AS MoyenneValeur, CU.ValeurChoix, C.idCapteur FROM  Capteur C JOIN ChoixUtilisateur CU ON C.idCapteur = CU.idCapteur WHERE C.idCave = $idCave AND C.TypeCapteur != 'Prise' GROUP BY C.TypeCapteur ORDER BY C.TypeCapteur";
+    $query = "SELECT C.TypeCapteur, AVG(C.ValeurCapteur) AS MoyenneValeur, CU.ValeurChoix, C.idCapteur FROM  Capteur C JOIN ChoixUtilisateur CU ON C.idCapteur = CU.idCapteur WHERE C.idCave = $idCave AND (C.TypeCapteur = 'Humidite' OR C.TypeCapteur = 'Lumiere' OR C.TypeCapteur = 'Temperature') GROUP BY C.TypeCapteur ORDER BY C.TypeCapteur";
     $query2 = "SELECT TC.* FROM TypeCave TC JOIN Cave C ON C.TypeCave=TC.idTypeCave WHERE C.idCave = $idCave";
     $resultat2 = mysqli_query($connexion, $query2);
     $resultat = mysqli_query($connexion, $query);
@@ -639,6 +639,7 @@ function dirigerMenu($connexion, $email) {
         exit();
     }
 }
+
 function redirigerCreaCave($connexion, $email) {
     // Prépare la requête pour récupérer le type d'utilisateur
     $query = "SELECT * FROM Admin WHERE EmailAdmin = '$email'";
@@ -656,6 +657,23 @@ function redirigerCreaCave($connexion, $email) {
         // Si l'utilisateur n'est pas trouvé ou si le type d'utilisateur n'est pas valide, redirigez vers la page de connexion
         header("Location: index.html");
         exit();
+    }
+}
+
+function getStatusPorte($connexion, $idCave) {
+    // Prépare la requête pour récupérer le status de la porte
+    $query = "SELECT ValeurCapteur FROM Capteur WHERE idCave = '$idCave' AND TypeCapteur = 'Porte'";
+    $resultat = mysqli_query($connexion, $query);
+
+    if ($resultat && mysqli_num_rows($resultat) > 0) {
+        while ($row = mysqli_fetch_assoc($resultat)) {
+            if ($row['ValeurCapteur'] == 1) {
+                return "Ouverte";
+            }
+        }
+        return "Fermee"; // Fermée
+    } else {
+        return null; // Aucun status trouvé
     }
 }
 ?>

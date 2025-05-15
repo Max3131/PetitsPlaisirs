@@ -57,42 +57,11 @@ modifierStatusCapteur($connexion);
       <section>
         <div class="row pt-5 mt-5 mb-4">
           <div class="col-12 text-center">
-            <h1>Dashboard <?php echo $id ?></h1>
+            <h1>Dashboard de la cave <?php echo $id ?></h1>
           </div>
         </div>
         <div class="row mb-5">
           <div class="col-8">
-            <!--
-            <div class="row">
-              <div class="col-4 d-flex justify-content-center">
-              <div class="card w-100">
-                <div class="card-body">
-                <h5 class="card-title">Luminosité</h5>
-                <h1 class="card-text">26 Lux</h1>
-                <p class="card-text">Recommandé : 26 Lux</p>
-                </div>
-              </div>
-              </div>
-              <div class="col-4 d-flex justify-content-center">
-              <div class="card w-100">
-                <div class="card-body">
-                <h5 class="card-title">Luminosité</h5>
-                <h1 class="card-text">26 Lux</h1>
-                <p class="card-text">Recommandé : 26 Lux</p>
-                </div>
-              </div>
-              </div>
-              <div class="col-4 d-flex justify-content-center">
-              <div class="card w-100">
-                <div class="card-body">
-                <h5 class="card-title">Luminosité</h5>
-                <h1 class="card-text">26 Lux</h1>
-                <p class="card-text">Recommandé : 26 Lux</p>
-                </div>
-              </div>
-              </div>
-            </div>
-            -->
             <?php
             //Affichage des relevés
             afficherRelevements($connexion, $id);
@@ -103,7 +72,10 @@ modifierStatusCapteur($connexion);
                 <div class="card w-100">
                   <div class="card-body d-flex justify-content-between align-items-center">
                     <h5 class="mb-0">Statut porte :</h5>
-                    <h5 class="mb-0 text-end" style="color:red;">Ouverte</h5>
+                    <?php
+                    $status = getStatusPorte($connexion, $id);
+                    echo '<h5 class="mb-0 text-end" style="color:red"' . $status . ';">' . $status . '</h5>';
+                    ?>
                   </div>
                 </div>
               </div>
